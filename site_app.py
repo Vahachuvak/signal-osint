@@ -9,6 +9,7 @@ import time
 from urllib.parse import urlsplit
 
 from osint_engine import inspect_target
+from people_osint import search_people
 
 ROOT = Path(__file__).resolve().parent
 MAX_BODY = 8192
@@ -82,14 +83,15 @@ def application(environ, start_response):
         return _respond(start_response, '200 OK', b'ok', 'text/plain; charset=utf-8')
     if not _valid_host_and_origin(environ):
         return _respond(start_response, '403 Forbidden', _json({'error': 'Недопустимый адрес или источник запроса.'}), 'application/json; charset=utf-8')
-    if method == 'GET' and path in ('/', '/app', '/app/'):
-        filename = 'signal_home.html' if path == '/' else 'osint_dashboard.html'
+    if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/'):
+        filename = ('people_dashboard.html' if path in ('/', '/people', '/people/') else
+                    'signal_home.html' if path == '/sites' else 'osint_dashboard.html')
         return _respond(start_response, '200 OK', (ROOT / filename).read_bytes())
     if method == 'GET' and path == '/favicon.ico':
         return _respond(start_response, '204 No Content', b'', 'image/x-icon')
     if method == 'GET' and path == '/robots.txt':
         return _respond(start_response, '200 OK', b'User-agent: *\nAllow: /\nDisallow: /app\n', 'text/plain; charset=utf-8')
-    if method != 'POST' or path != '/api/inspect':
+    if method != 'POST' or path not in ('/api/inspect', '/api/people'):
         return _respond(start_response, '404 Not Found', _json({'error': 'Страница не найдена.'}), 'application/json; charset=utf-8')
     try:
         if environ.get('CONTENT_TYPE', '').split(';', 1)[0].strip().lower() != 'application/json':
@@ -98,7 +100,7 @@ def application(environ, start_response):
         if not 0 < length <= MAX_BODY:
             raise ValueError('Недопустимый размер запроса.')
         request = json.loads(environ['wsgi.input'].read(length))
-        if not isinstance(request, dict) or any(not isinstance(request.get(key, False), bool) for key in ('ct', 'rdap', 'archive')):
+        if not isinstance(request, dict) or (path == '/api/inspect' and any(not isinstance(request.get(key, False), bool) for key in ('ct', 'rdap', 'archive'))):
             raise ValueError('Некорректный формат запроса.')
     except (ValueError, TypeError, UnicodeError):
         return _respond(start_response, '400 Bad Request', _json({'error': 'Проверьте формат и размер запроса.'}), 'application/json; charset=utf-8')
@@ -108,8 +110,12 @@ def application(environ, start_response):
         return _respond(start_response, '429 Too Many Requests', _json({'error': msg}), 'application/json; charset=utf-8', [('Retry-After', '60')])
     try:
         try:
-            result = inspect_target(request.get('target'), use_ct=request.get('ct', False),
-                                    use_rdap=request.get('rdap', False), use_archive=request.get('archive', False))
+            if path == '/api/people':
+                result = search_people(request.get('username', ''), request.get('name', ''), request.get('sources', []),
+                                       orcid=request.get('orcid', ''), context=request.get('context', ''))
+            else:
+                result = inspect_target(request.get('target'), use_ct=request.get('ct', False),
+                                        use_rdap=request.get('rdap', False), use_archive=request.get('archive', False))
             status = '200 OK'
         except (ValueError, TypeError) as exc:
             result, status = {'error': str(exc)}, '400 Bad Request'

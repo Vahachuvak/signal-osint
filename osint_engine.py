@@ -99,7 +99,7 @@ class PinnedHTTPS(http.client.HTTPSConnection):
             raise
 
 
-def fetch(target, addresses, path, limit=BODY_LIMIT):
+def fetch(target, addresses, path, limit=BODY_LIMIT, accept='*/*'):
     """Single GET, pinned to a validated address; never follows redirects."""
     start = time.monotonic()
     last_error = 'Нет доступных адресов'
@@ -116,7 +116,7 @@ def fetch(target, addresses, path, limit=BODY_LIMIT):
                        'expires': cert.get('notAfter', ''), 'subject_alt_names': [value for typ, value in cert.get('subjectAltName', ()) if typ == 'DNS'][:60]}
             sent = True
             conn.request('GET', path, headers={'Host': target['authority'], 'User-Agent': USER_AGENT,
-                                              'Accept': '*/*', 'Accept-Encoding': 'identity', 'Connection': 'close'})
+                                              'Accept': accept, 'Accept-Encoding': 'identity', 'Connection': 'close'})
             response = conn.getresponse()
             raw = response.read(limit + 1)
             headers = {}
