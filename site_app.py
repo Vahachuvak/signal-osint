@@ -82,31 +82,39 @@ def application(environ, start_response):
     if method == 'GET' and path == '/healthz':
         return _respond(start_response, '200 OK', b'ok', 'text/plain; charset=utf-8')
     if not _valid_host_and_origin(environ):
-        return _respond(start_response, '403 Forbidden', _json({'error': 'Недопустимый адрес или источник запроса.'}), 'application/json; charset=utf-8')
-    if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/'):
+        return _respond(start_response, '403 Forbidden', _json({'error': 'Invalid host or request origin.'}), 'application/json; charset=utf-8')
+    if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/', '/media', '/media/', '/updates', '/updates/'):
         filename = ('people_dashboard.html' if path in ('/', '/people', '/people/') else
-                    'signal_home.html' if path == '/sites' else 'osint_dashboard.html')
+                    'signal_home.html' if path == '/sites' else
+                    'media.html' if path in ('/media', '/media/') else
+                    'updates.html' if path in ('/updates', '/updates/') else 'osint_dashboard.html')
         return _respond(start_response, '200 OK', (ROOT / filename).read_bytes())
     if method == 'GET' and path == '/favicon.ico':
         return _respond(start_response, '204 No Content', b'', 'image/x-icon')
+    if method == 'GET' and path == '/signal.css':
+        return _respond(start_response, '200 OK', (ROOT / 'signal.css').read_bytes(), 'text/css; charset=utf-8')
+    if method == 'GET' and path == '/people_enhancements.js':
+        return _respond(start_response, '200 OK', (ROOT / 'people_enhancements.js').read_bytes(), 'text/javascript; charset=utf-8')
+    if method == 'GET' and path == '/signal_i18n.js':
+        return _respond(start_response, '200 OK', (ROOT / 'signal_i18n.js').read_bytes(), 'text/javascript; charset=utf-8')
     if method == 'GET' and path == '/robots.txt':
         return _respond(start_response, '200 OK', b'User-agent: *\nAllow: /\nDisallow: /app\n', 'text/plain; charset=utf-8')
     if method != 'POST' or path not in ('/api/inspect', '/api/people'):
-        return _respond(start_response, '404 Not Found', _json({'error': 'Страница не найдена.'}), 'application/json; charset=utf-8')
+        return _respond(start_response, '404 Not Found', _json({'error': 'Page not found.'}), 'application/json; charset=utf-8')
     try:
         if environ.get('CONTENT_TYPE', '').split(';', 1)[0].strip().lower() != 'application/json':
-            raise ValueError('Ожидается запрос application/json.')
+            raise ValueError('Expected an application/json request.')
         length = int(environ.get('CONTENT_LENGTH') or '0')
         if not 0 < length <= MAX_BODY:
-            raise ValueError('Недопустимый размер запроса.')
+            raise ValueError('Invalid request size.')
         request = json.loads(environ['wsgi.input'].read(length))
         if not isinstance(request, dict) or (path == '/api/inspect' and any(not isinstance(request.get(key, False), bool) for key in ('ct', 'rdap', 'archive'))):
-            raise ValueError('Некорректный формат запроса.')
+            raise ValueError('Invalid request format.')
     except (ValueError, TypeError, UnicodeError):
-        return _respond(start_response, '400 Bad Request', _json({'error': 'Проверьте формат и размер запроса.'}), 'application/json; charset=utf-8')
+        return _respond(start_response, '400 Bad Request', _json({'error': 'Check the request format and size.'}), 'application/json; charset=utf-8')
     reservation = _reserve_scan()
     if reservation != 'ok':
-        msg = 'Сервер сейчас занят. Попробуйте снова через несколько секунд.' if reservation == 'busy' else 'Достигнут общий лимит исследований. Попробуйте позже.'
+        msg = 'The server is busy. Please try again in a few seconds.' if reservation == 'busy' else 'The shared investigation limit has been reached. Please try again later.'
         return _respond(start_response, '429 Too Many Requests', _json({'error': msg}), 'application/json; charset=utf-8', [('Retry-After', '60')])
     try:
         try:
@@ -120,7 +128,7 @@ def application(environ, start_response):
         except (ValueError, TypeError) as exc:
             result, status = {'error': str(exc)}, '400 Bad Request'
         except Exception:
-            result, status = {'error': 'Внутренняя ошибка анализа. Проверьте адрес и повторите попытку.'}, '500 Internal Server Error'
+            result, status = {'error': 'An internal error occurred. Check your input and try again.'}, '500 Internal Server Error'
     finally:
         _scan_slots.release()
     return _respond(start_response, status, _json(result), 'application/json; charset=utf-8')
