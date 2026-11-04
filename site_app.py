@@ -96,7 +96,8 @@ def application(environ, start_response):
             return _respond(start_response, '404 Not Found', _json({'error': 'Page not found.'}), 'application/json; charset=utf-8')
         return _respond(start_response, '200 OK', (ROOT / 'admin.html').read_bytes())
     if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/', '/media', '/media/', '/updates', '/updates/', '/account', '/account/'):
-        filename = ('people_dashboard.html' if path in ('/', '/people', '/people/') else
+        filename = ('home.html' if path == '/' else
+                    'people_dashboard.html' if path in ('/people', '/people/') else
                     'signal_home.html' if path == '/sites' else
                     'media.html' if path in ('/media', '/media/') else
                     'updates.html' if path in ('/updates', '/updates/') else
