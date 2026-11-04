@@ -2,6 +2,8 @@
 (function () {
   'use strict';
 
+  // Historical UI labels are retained for compatibility and translation
+  // coverage checks. Russian is no longer a selectable interface language.
   const ru = {
     'Main navigation': 'Основная навигация', 'Navigation': 'Навигация', 'Workspaces': 'Разделы', 'Signal home': 'Signal — на главную',
     'PEOPLE': 'ЛЮДИ', 'SITES': 'САЙТЫ', 'MEDIA': 'МЕДИА', 'UPDATES': 'ОБНОВЛЕНИЯ', 'ACCOUNT': 'АККАУНТ',
@@ -316,51 +318,301 @@
     'Media and support': 'Медиа и поддержка'
   };
 
+  // Spanish UI copy. User-provided values and external source data are never
+  // translated or sent to a translation service by the running application.
+  const es = {
+    'Main navigation': 'Navegación principal', 'Navigation': 'Navegación', 'Workspaces': 'Espacios de trabajo', 'Signal home': 'Inicio de Signal',
+    'PEOPLE': 'PERSONAS', 'SITES': 'SITIOS', 'MEDIA': 'MEDIOS', 'UPDATES': 'ACTUALIZACIONES', 'ACCOUNT': 'CUENTA',
+    'People': 'Personas', 'Media': 'Medios', 'Updates': 'Actualizaciones', 'Account': 'Cuenta', 'LOG': 'REGISTRO',
+    '01 / PEOPLE': '01 / PERSONAS', '02 / SITES': '02 / SITIOS', '03 / MEDIA': '03 / MEDIOS', '04 / UPDATES': '04 / ACTUALIZACIONES',
+    'Public profiles and articles': 'Perfiles y artículos públicos', 'Domains and connections': 'Dominios y conexiones',
+    'Follow and support Signal': 'Sigue y apoya a Signal', "What's new in Signal": 'Novedades de Signal',
+    'WORKSPACE / PEOPLE INTELLIGENCE': 'ESPACIO DE TRABAJO / BÚSQUEDA DE PERSONAS', 'PUBLIC SOURCES ONLY': 'SOLO FUENTES PÚBLICAS',
+    'OPEN SOURCE INTELLIGENCE': 'INTELIGENCIA DE FUENTES ABIERTAS', 'WEB INTELLIGENCE': 'INTELIGENCIA WEB',
+    'Find the signal.': 'Encuentra la señal.', 'Follow the connections.': 'Sigue las conexiones.',
+    'Explore public profiles and articles. Follow the evidence, verify the source, and never assume a match is an identity.': 'Explora perfiles y artículos públicos. Revisa las pruebas, verifica las fuentes y no confundas una coincidencia con una identidad.',
+    'SIGNAL / 01 ─ PEOPLE': 'SIGNAL / 01 ─ PERSONAS', '01 / SEARCH PARAMETERS': '01 / PARÁMETROS DE BÚSQUEDA',
+    'Enter a username, name, or both': 'Introduce un nombre de usuario, un nombre o ambos', 'Username, name, profile URL, or ORCID iD': 'Usuario, nombre, URL de perfil u ORCID iD',
+    'QUERY': 'CONSULTA', 'USERNAME': 'NOMBRE DE USUARIO', 'FULL NAME': 'NOMBRE COMPLETO', 'PUBLIC PROFILE URL': 'URL DEL PERFIL PÚBLICO',
+    'e.g. octocat': 'p. ej., octocat', 'e.g. Ada Lovelace': 'p. ej., Ada Lovelace', 'e.g. university': 'p. ej., universidad',
+    'No links or email addresses.': 'Sin enlaces ni direcciones de correo.', 'Used for public name searches.': 'Se utiliza para buscar nombres en fuentes públicas.',
+    'Used for Wikipedia, Wikidata, Stack Overflow, Crossref, and manual searches.': 'Se utiliza para Wikipedia, Wikidata, Stack Overflow, Crossref y búsquedas manuales.',
+    'Extracts a username from a supported public profile. The URL itself is not visited.': 'Extrae el usuario de un perfil público compatible. La URL no se visita.',
+    'Extracts a username from GitHub, GitLab, DEV, Hacker News, Bluesky, or Mastodon.social. The link is not visited.': 'Extrae el usuario de GitHub, GitLab, DEV, Hacker News, Bluesky o Mastodon.social. El enlace no se visita.',
+    'Extracts a username from GitHub, GitLab, DEV, Hacker News, Bluesky, Mastodon.social, Instagram, TikTok, or Telegram. The link is not visited.': 'Extrae el usuario de GitHub, GitLab, DEV, Hacker News, Bluesky, Mastodon.social, Instagram, TikTok o Telegram. El enlace no se visita.',
+    'EXTRACT USERNAME': 'EXTRAER USUARIO', 'Public researcher identifier, not a phone number.': 'Identificador público de investigador, no un número de teléfono.',
+    'CONTEXT FOR MANUAL SEARCH': 'CONTEXTO PARA LA BÚSQUEDA MANUAL', 'Added to Google, Bing, and DuckDuckGo links; does not verify identity.': 'Se añade a los enlaces de Google, Bing y DuckDuckGo; no verifica la identidad.',
+    'SOURCES': 'FUENTES', 'Source selection': 'Selección de fuentes', 'All': 'Todas', 'Profiles': 'Perfiles', 'Research': 'Investigación', 'Clear': 'Limpiar', 'Wikipedia': 'Wikipedia',
+    '445 profile sites': '445 sitios con perfiles', '198 profile sites': '198 sitios con perfiles', 'OPTIONAL': 'OPCIONAL',
+    'The optional group sends the username to up to 445 sites and may take several minutes. Blocked or uncertain results require manual verification.': 'El grupo opcional envía el usuario a un máximo de 445 sitios y puede tardar varios minutos. Los resultados bloqueados o inciertos requieren verificación manual.',
+    'The optional group sends the username to up to 198 sites and may take a minute. Blocked or uncertain results require manual verification.': 'El grupo opcional envía el usuario a un máximo de 198 sitios y puede tardar un minuto. Los resultados bloqueados o inciertos requieren verificación manual.',
+    'Save history in this browser': 'Guardar historial en este navegador',
+    'Selected sources receive the username, name, or ORCID. History is off by default. Do not enter addresses, phone numbers, passwords, or tokens in search fields.': 'Las fuentes seleccionadas reciben el usuario, nombre u ORCID. El historial está desactivado por defecto. No introduzcas direcciones, teléfonos, contraseñas ni tokens.',
+    'Selected sources receive your username or name. History is off by default. Do not enter addresses, phone numbers, passwords, or tokens.': 'Las fuentes seleccionadas reciben el usuario o nombre. El historial está desactivado por defecto. No introduzcas direcciones, teléfonos, contraseñas ni tokens.',
+    'START SEARCH': 'INICIAR BÚSQUEDA', 'SEARCHING...': 'BUSCANDO...', '02 / PHONE FORMAT': '02 / FORMATO DE TELÉFONO',
+    'Checked only in this browser. The number is not sent to the server, and this does not find an owner or verify the number exists.': 'Se comprueba solo en este navegador. El número no se envía al servidor; no se busca al propietario ni se verifica que exista.',
+    'INTERNATIONAL FORMAT': 'FORMATO INTERNACIONAL', '+ and country code': '+ y código de país', 'CHECK FORMAT': 'COMPROBAR FORMATO', 'CLEAR': 'LIMPIAR',
+    'Enter an international number beginning with +. Spaces, parentheses, and hyphens are allowed.': 'Introduce un número internacional que comience con +. Se permiten espacios, paréntesis y guiones.',
+    'Invalid format: use 7 to 15 digits after +, starting with a non-zero digit.': 'Formato incorrecto: usa entre 7 y 15 dígitos después de +, comenzando con un dígito distinto de cero.',
+    'The basic format check passed. The number, carrier, and owner are not verified.': 'La comprobación básica del formato ha terminado. El número, la operadora y el propietario no están verificados.',
+    'MODULES': 'MÓDULOS', 'MATCHES': 'COINCIDENCIAS', 'FOUND IN': 'ENCONTRADO EN', 'ERRORS': 'ERRORES',
+    'name / username': 'nombre / usuario', 'username / name / ORCID': 'usuario / nombre / ORCID', 'sources and sections': 'fuentes y secciones',
+    'not identity verification': 'no verifica la identidad', 'modules; not identification': 'módulos; no identifica', 'unavailable sources': 'fuentes no disponibles',
+    'RESULTS': 'RESULTADOS', 'RELATIONSHIP GRAPH': 'GRAFO DE RELACIONES', 'SEARCH LINKS': 'ENLACES DE BÚSQUEDA', 'HISTORY': 'HISTORIAL',
+    '[ VIEW DETAILS ]': '[ VER DETALLES ]', 'Waiting for a search': 'Esperando una búsqueda', 'Filter results...': 'Filtrar resultados...', 'Filter results': 'Filtrar resultados',
+    'Status': 'Estado', 'All statuses': 'Todos los estados', 'Found': 'Encontrado', 'Unverified': 'No verificado', 'No data': 'Sin datos', 'Error': 'Error', 'Disabled': 'Desactivado', 'Ready': 'Listo',
+    'FOUND': 'ENCONTRADO', 'UNVERIFIED': 'NO VERIFICADO', 'NO DATA': 'SIN DATOS', 'ERROR': 'ERROR', 'DISABLED': 'DESACTIVADO', 'READY': 'LISTO',
+    '[ AWAITING DATA ]': '[ ESPERANDO DATOS ]', 'Enter a username or a name.': 'Introduce un usuario o nombre.', 'Results will appear here after your search.': 'Los resultados aparecerán aquí después de la búsqueda.',
+    'No results match the filter.': 'No hay resultados para el filtro.', 'No results match this status and text filter.': 'No hay resultados para este estado y filtro de texto.',
+    'The query is connected to results, not a verified identity.': 'La consulta se conecta con resultados, no con una identidad verificada.',
+    'Zoom in': 'Acercar', 'Zoom out': 'Alejar', 'RESET': 'RESTABLECER', 'Reset': 'Restablecer', 'Public source graph': 'Grafo de fuentes públicas', 'GRAPH IS EMPTY': 'EL GRAFO ESTÁ VACÍO',
+    'Select a node to view its source. Up to 35 nodes are shown.': 'Selecciona un nodo para ver su fuente. Se muestran hasta 35 nodos.',
+    'Drag nodes and select them to view their source. Up to 35 nodes are shown.': 'Arrastra y selecciona los nodos para ver su fuente. Se muestran hasta 35 nodos.',
+    'OPEN SOURCE': 'ABRIR FUENTE', 'Search query': 'Consulta de búsqueda', 'search query': 'consulta de búsqueda', 'profile': 'perfil', 'repository': 'repositorio', 'organization': 'organización', 'article': 'artículo',
+    'Open these links to verify results yourself. Services open only when selected.': 'Abre estos enlaces para verificar los resultados. Los servicios se abren solo al seleccionarlos.',
+    'Search links will appear after a search.': 'Los enlaces aparecerán después de una búsqueda.', 'The query is sent to the service only when you open the link.': 'La consulta se envía al servicio solo al abrir el enlace.',
+    'History stays in this browser when saving is enabled.': 'El historial permanece en este navegador cuando se activa el guardado.', 'CLEAR HISTORY': 'BORRAR HISTORIAL',
+    'History is empty. Enable saving before searching if you need it.': 'El historial está vacío. Activa el guardado antes de buscar si lo necesitas.',
+    'COMPARE': 'COMPARAR', 'COMPARE SEARCHES': 'COMPARAR BÚSQUEDAS', 'No changes found in available data.': 'No se encontraron cambios en los datos disponibles.',
+    '[ IMPORTANT ] Matching names or usernames do not prove profiles belong to the same person. Verify sources independently and use this tool responsibly and lawfully.': '[ IMPORTANTE ] Los nombres o usuarios coincidentes no prueban que los perfiles pertenezcan a la misma persona. Verifica las fuentes y usa esta herramienta de forma responsable y legal.',
+    'EXPORT JSON': 'EXPORTAR JSON', 'EXPORT MARKDOWN': 'EXPORTAR MARKDOWN', 'AWAITING SEARCH': 'ESPERANDO BÚSQUEDA',
+    'Public data · bounded requests': 'Datos públicos · solicitudes limitadas', 'OPEN SITE INVESTIGATION': 'ABRIR INVESTIGACIÓN DE SITIOS', 'This is not identity verification or an exhaustive search.': 'Esto no verifica la identidad ni es una búsqueda exhaustiva.', 'OPEN': 'ABRIR',
+    'WORKSPACE': 'ESPACIO DE TRABAJO', 'SIGNAL / WORKSPACE': 'SIGNAL / ESPACIO DE TRABAJO', 'SIGNAL / PEOPLE INTELLIGENCE': 'SIGNAL / BÚSQUEDA DE PERSONAS',
+    'INFORMATION': 'INFORMACIÓN', 'People search': 'Búsqueda de personas', 'Website overview': 'Resumen del sitio web',
+    'Search modules': 'Módulos de búsqueda', 'Relationship graph': 'Grafo de relaciones', 'History and reports': 'Historial e informes', 'Media & support': 'Medios y apoyo',
+    'About': 'Acerca de', 'Browser history': 'Historial del navegador', 'Results are saved in this browser. External sources are enabled separately.': 'Los resultados se guardan en este navegador. Las fuentes externas se activan por separado.',
+    'OVERVIEW': 'RESUMEN', 'SEARCH MODULES': 'MÓDULOS DE BÚSQUEDA', 'HISTORY AND REPORTS': 'HISTORIAL E INFORMES', 'ABOUT': 'ACERCA DE',
+    'Home': 'Inicio', '← Home': '← Inicio', 'Web platform': 'Plataforma web', 'PASSIVE OSINT': 'OSINT PASIVO',
+    'WEB INTELLIGENCE WORKSPACE': 'ESPACIO DE INTELIGENCIA WEB', 'See beyond the surface.': 'Mira más allá de la superficie.',
+    'Public data, connections, and a website’s technical profile in one workspace.': 'Datos públicos, conexiones y el perfil técnico de un sitio en un solo espacio.',
+    'New investigation': 'Nueva investigación', 'HTTP(S) · public domains and IPs': 'HTTP(S) · dominios e IP públicas',
+    'Enter a domain or address, e.g. example.com': 'Introduce un dominio o dirección, p. ej., example.com', 'Start investigation': 'Iniciar investigación',
+    'crt.sh · certificates': 'crt.sh · certificados', 'RDAP · registration': 'RDAP · registro', 'Wayback · archive': 'Wayback · archivo',
+    'Optional: the domain is sent to the selected external services': 'Opcional: el dominio se envía a los servicios externos seleccionados',
+    'The site returned a redirect. Automatic redirects are disabled. New address without parameters:': 'El sitio devolvió una redirección. Las redirecciones automáticas están desactivadas. Nueva dirección sin parámetros:',
+    'Investigate this address': 'Investigar esta dirección', 'ACTIVE TARGET': 'OBJETIVO ACTIVO', 'Target domain': 'Dominio objetivo', 'HTTP STATUS': 'ESTADO HTTP',
+    'Awaiting investigation': 'Esperando investigación', 'IP ADDRESSES': 'DIRECCIONES IP', 'System DNS responses': 'Respuestas DNS del sistema', 'Passive sources and analysis': 'Fuentes pasivas y análisis',
+    'Investigation coverage': 'Cobertura de la investigación', 'Module status for the current target': 'Estado de los módulos del objetivo actual', 'waiting': 'en espera', 'complete': 'completado',
+    'Module results': 'Resultados de módulos', 'Latest investigation': 'Última investigación', 'All modules': 'Todos los módulos',
+    'Nothing here yet': 'Todavía no hay datos', 'Enter a domain above to collect your first results.': 'Introduce un dominio para obtener los primeros resultados.',
+    'Each module shows its source and the limits of its results.': 'Cada módulo muestra su fuente y los límites de sus resultados.', 'Search modules...': 'Buscar módulos...',
+    'Warning': 'Advertencia', 'Errors': 'Errores', 'Information': 'Información',
+    'Select a node for details. Drag nodes and zoom the graph.': 'Selecciona un nodo para ver detalles. Arrastra los nodos y amplía el grafo.', 'Download SVG': 'Descargar SVG',
+    'Up to 20 investigations in local browser storage. Compare results for the same target.': 'Hasta 20 investigaciones guardadas en el navegador. Compara resultados del mismo objetivo.',
+    'Export JSON': 'Exportar JSON', 'Export Markdown': 'Exportar Markdown', 'Clear history': 'Borrar historial', 'Transparency about sources and the limits of analysis.': 'Información sobre las fuentes y los límites del análisis.',
+    'What is analyzed': 'Qué se analiza', 'External sources': 'Fuentes externas', 'What Signal does not do': 'Lo que Signal no hace', 'Privacy': 'Privacidad',
+    'System DNS, HTTP response, TLS certificate, requested page HTML, and three public files: robots.txt, sitemap.xml, and security.txt. At most four GET requests are made to the site; redirects and discovered links are not followed.': 'DNS del sistema, respuesta HTTP, certificado TLS, HTML de la página y tres archivos públicos: robots.txt, sitemap.xml y security.txt. Se hacen como máximo cuatro solicitudes GET; no se siguen redirecciones ni enlaces.',
+    'crt.sh, RDAP, and Internet Archive are enabled separately. The domain is sent to selected services; RDAP may redirect the request to the appropriate registry. Results may be incomplete or outdated.': 'crt.sh, RDAP e Internet Archive se activan por separado. El dominio se envía a los servicios seleccionados; RDAP puede redirigir la solicitud al registro correspondiente. Los resultados pueden estar incompletos o desactualizados.',
+    'Signal does not exploit vulnerabilities, test SQL injection, guess passwords, submit forms, or crawl websites. A lack of findings does not mean a site is secure.': 'Signal no explota vulnerabilidades, prueba inyecciones SQL, adivina contraseñas, envía formularios ni rastrea sitios. La ausencia de hallazgos no significa que un sitio sea seguro.',
+    'History stays in this browser. Cookie and form field values are not collected, and URL parameters are removed from reports. The site may reflect parameters elsewhere; do not enter secrets.': 'El historial permanece en este navegador. No se recopilan valores de cookies ni formularios y se eliminan los parámetros URL de los informes. El sitio puede reflejarlos en otros datos; no introduzcas secretos.',
+    'Passive intelligence.': 'Inteligencia pasiva.', 'Investigate only websites you have permission to examine. Data can be incomplete; results are not a security audit.': 'Investiga solo sitios que estés autorizado a examinar. Los datos pueden estar incompletos y los resultados no son una auditoría de seguridad.',
+    'Visual map of discovered connections · up to 60 nodes': 'Mapa visual de conexiones descubiertas · hasta 60 nodos', 'Website relationship graph': 'Grafo de relaciones del sitio', 'RELATIONSHIP MAP': 'MAPA DE RELACIONES', 'NETWORK / 01': 'RED / 01',
+    'Scroll to zoom · drag to move nodes': 'Desplázate para ampliar · arrastra para mover nodos', 'Domain': 'Dominio', 'Certificate': 'Certificado', 'Resource / link': 'Recurso / enlace',
+    'Select a node': 'Selecciona un nodo', 'The map is empty': 'El mapa está vacío', 'Run an investigation to see connections': 'Ejecuta una investigación para ver conexiones',
+    'Optional search via crt.sh.': 'Búsqueda opcional mediante crt.sh.', 'Results appear after an investigation.': 'Los resultados aparecen después de una investigación.', 'Details': 'Detalles',
+    'No additional data.': 'No hay datos adicionales.', 'No results match this filter.': 'No hay resultados para este filtro.',
+    'History is empty': 'El historial está vacío', 'Completed investigations appear here.': 'Las investigaciones completadas aparecen aquí.', 'Compare': 'Comparar', 'Open': 'Abrir',
+    'Before:': 'Antes:', 'After:': 'Después:', 'Showing the first 50 changes.': 'Se muestran los primeros 50 cambios.', 'No differences found in the available data.': 'No se encontraron diferencias en los datos disponibles.',
+    'GitHub · profile': 'GitHub · perfil', 'GitHub · repositories': 'GitHub · repositorios', 'GitHub · organizations': 'GitHub · organizaciones',
+    'GitLab · profile': 'GitLab · perfil', 'Hacker News · profile': 'Hacker News · perfil', 'DEV Community · profile': 'DEV Community · perfil',
+    'Bluesky · profile': 'Bluesky · perfil', 'Mastodon.social · profile': 'Mastodon.social · perfil', 'Wikipedia · Russian': 'Wikipedia · ruso', 'Wikipedia · English': 'Wikipedia · inglés',
+    'Wikidata · entity search': 'Wikidata · búsqueda de entidades', 'Stack Overflow · profile search': 'Stack Overflow · búsqueda de perfiles', 'Crossref · publications': 'Crossref · publicaciones', 'ORCID · researcher': 'ORCID · investigador', 'Search links': 'Enlaces de búsqueda',
+    'Select GitHub and enter a username.': 'Selecciona GitHub e introduce un usuario.', 'Select GitLab and enter a username.': 'Selecciona GitLab e introduce un usuario.',
+    'Select Hacker News and enter a username.': 'Selecciona Hacker News e introduce un usuario.', 'Select DEV Community and enter a username.': 'Selecciona DEV Community e introduce un usuario.',
+    'Enter a compatible Bluesky handle or username and select Bluesky. A plain username is checked as username.bsky.social.': 'Introduce un identificador de Bluesky compatible y selecciona Bluesky. Un usuario simple se comprueba como usuario.bsky.social.',
+    'Select Mastodon.social and enter a username. Other Mastodon servers are not checked.': 'Selecciona Mastodon.social e introduce un usuario. No se comprueban otros servidores de Mastodon.',
+    'Select Wikipedia and enter a name.': 'Selecciona Wikipedia e introduce un nombre.', 'Select Wikidata and enter a name.': 'Selecciona Wikidata e introduce un nombre.',
+    'Select Stack Overflow and enter a name or username.': 'Selecciona Stack Overflow e introduce un nombre o usuario.', 'Select Crossref and enter a name.': 'Selecciona Crossref e introduce un nombre.', 'Select ORCID and enter a public ORCID iD.': 'Selecciona ORCID e introduce un ORCID iD público.',
+    'A public profile with this exact username was found. Verify its identity independently.': 'Se encontró un perfil público con este usuario exacto. Verifica la identidad de forma independiente.',
+    'A public profile with this exact username was found.': 'Se encontró un perfil público con este usuario exacto.', 'No accessible public profile with this exact username was found.': 'No se encontró un perfil público accesible con este usuario exacto.',
+    'An exact public username was found. This does not establish a match with other profiles.': 'Se encontró un usuario público exacto. Esto no confirma una relación con otros perfiles.',
+    'An exact public Bluesky handle was found; verify the identity independently.': 'Se encontró un identificador público exacto de Bluesky; verifica la identidad de forma independiente.',
+    'A public profile with this exact username was found on mastodon.social only.': 'Se encontró un perfil con este usuario únicamente en mastodon.social.', 'No public profile was found on mastodon.social. Other servers were not checked.': 'No se encontró un perfil público en mastodon.social. No se comprobaron otros servidores.',
+    'No data found or the profile is unavailable.': 'No hay datos o el perfil no está disponible.', 'The source returned an unexpected response.': 'La fuente devolvió una respuesta inesperada.',
+    'Name search result; identity is not confirmed.': 'Resultado de búsqueda por nombre; identidad no confirmada.', 'Search result; identity is not confirmed.': 'Resultado de búsqueda; identidad no confirmada.',
+    'No accessible public record was found.': 'No se encontró un registro público accesible.', 'Public record for the supplied ORCID. This does not confirm a match with other results.': 'Registro público del ORCID proporcionado. No confirma una coincidencia con otros resultados.',
+    'Display name': 'Nombre visible', 'Username': 'Usuario', 'Company': 'Empresa', 'Public repositories': 'Repositorios públicos', 'Followers': 'Seguidores', 'Following': 'Siguiendo', 'Created': 'Creado',
+    'Handle': 'Identificador', 'Given name': 'Nombre', 'Family name': 'Apellido', 'Credit name': 'Nombre publicado', 'Public organization': 'Organización pública', 'language not specified': 'idioma no especificado',
+    'Open GitHub': 'Abrir GitHub', 'Open GitLab': 'Abrir GitLab', 'Open Hacker News': 'Abrir Hacker News', 'Open DEV': 'Abrir DEV', 'Open Bluesky': 'Abrir Bluesky', 'Open Mastodon': 'Abrir Mastodon', 'Open ORCID': 'Abrir ORCID',
+    'Open profile': 'Abrir perfil', 'Profile found; a name match does not confirm identity.': 'Perfil encontrado; una coincidencia de nombre no confirma la identidad.',
+    'No accessible public profile was found; a private or unavailable profile is still possible.': 'No se encontró un perfil público accesible; aún podría existir un perfil privado o no disponible.',
+    'Could not verify the profile automatically; open the link and check it yourself.': 'No se pudo verificar el perfil automáticamente; abre el enlace y compruébalo.',
+    'The service was unavailable or blocked the request; check the link manually.': 'El servicio no estaba disponible o bloqueó la solicitud; comprueba el enlace manualmente.',
+    'Skipped: this username cannot be used as a subdomain for this site.': 'Omitido: este usuario no puede utilizarse como subdominio en este sitio.',
+    'DNS and addresses': 'DNS y direcciones', 'HTTP response': 'Respuesta HTTP', 'TLS certificate': 'Certificado TLS', 'Security headers': 'Cabeceras de seguridad', 'Cookie settings': 'Configuración de cookies',
+    'Technologies and server': 'Tecnologías y servidor', 'Page metadata': 'Metadatos de la página', 'Links and external domains': 'Enlaces y dominios externos', 'Contacts and social links': 'Contactos y enlaces sociales',
+    'Forms and fields': 'Formularios y campos', 'External resources': 'Recursos externos', 'Indexing': 'Indexación', 'Database errors': 'Errores de base de datos', 'Basic accessibility indicators': 'Indicadores básicos de accesibilidad',
+    'Domain registration · RDAP': 'Registro de dominio · RDAP', 'Website archive · Wayback': 'Archivo web · Wayback', 'URL without parameters': 'URL sin parámetros', 'Redirect (not followed)': 'Redirección (no seguida)',
+    'Bytes read': 'Bytes leídos', 'Protocol': 'Protocolo', 'Issuer': 'Emisor', 'Expires': 'Caduca', 'Certificate names': 'Nombres del certificado', 'Language': 'Idioma', 'External link': 'Enlace externo',
+    'Internal links': 'Enlaces internos', 'Platform': 'Plataforma', 'Entry': 'Entrada', 'Signature': 'Firma', 'HTML language': 'Idioma HTML', 'Images without alt': 'Imágenes sin alt', 'H1 headings': 'Encabezados H1',
+    'Certificate name': 'Nombre del certificado', 'Registry domain': 'Dominio del registro', 'Registration': 'Registro', 'Expiration': 'Caducidad', 'Last changed': 'Última modificación', 'Registrar': 'Registrador',
+    'Nameserver': 'Servidor de nombres', 'Snapshot URL': 'URL de la captura', 'Snapshot time (UTC)': 'Fecha de la captura (UTC)', 'HTTP status': 'Estado HTTP',
+    'No HTTP response to analyze.': 'No hay respuesta HTTP para analizar.', 'No HTML page available for analysis.': 'No hay página HTML disponible para analizar.',
+    'Certificate verified by the system.': 'Certificado verificado por el sistema.', 'HTTP does not use a certificate.': 'HTTP no utiliza certificado.', 'Could not verify the certificate.': 'No se pudo verificar el certificado.',
+    'Metadata from the requested HTML page.': 'Metadatos de la página HTML solicitada.', 'Public mailto links and links to known platforms from the page.': 'Enlaces mailto públicos y enlaces a plataformas conocidas de la página.',
+    'Indexing directives from the response and metadata; search engines are not queried.': 'Directivas de indexación de la respuesta y metadatos; no se consultan buscadores.',
+    'Response text unavailable; check not performed.': 'Texto de respuesta no disponible; no se realizó la comprobación.', 'Selected indicators from the source HTML only; not an accessibility audit.': 'Solo indicadores del HTML de origen; no es una auditoría de accesibilidad.',
+    'Possible database error messages found. This is not an SQL injection test.': 'Se encontraron posibles mensajes de error de base de datos. Esto no es una prueba de inyección SQL.',
+    'No known error signatures found in the response fragment. This is not an SQL injection test.': 'No se encontraron firmas de error conocidas en el fragmento de respuesta. Esto no es una prueba de inyección SQL.',
+    'Disabled. When enabled, the domain is sent to crt.sh.': 'Desactivado. Al activarlo, el dominio se envía a crt.sh.', 'Disabled. When enabled, the domain is sent to rdap.org and the registry.': 'Desactivado. Al activarlo, el dominio se envía a rdap.org y al registro.',
+    'Disabled. When enabled, the website address is sent to Internet Archive.': 'Desactivado. Al activarlo, la dirección se envía a Internet Archive.',
+    'Public RDAP registration data. Some details may be hidden.': 'Datos públicos de registro RDAP. Algunos detalles pueden estar ocultos.', 'Closest available home-page snapshot.': 'Captura disponible más cercana de la página inicial.', 'No archived home-page snapshot found.': 'No se encontró una captura archivada de la página inicial.',
+    'SIGNAL / 03 ─ MEDIA & SUPPORT': 'SIGNAL / 03 ─ MEDIOS Y APOYO', 'Stay in the': 'Mantente al', 'loop.': 'día.', 'Support the signal.': 'Apoya a Signal.',
+    'Follow the project for updates and support the continued development of Signal OSINT.': 'Sigue las novedades y apoya el desarrollo continuo de Signal OSINT.',
+    '01 / CHANNEL': '01 / CANAL', '02 / SUPPORT': '02 / APOYO', '02 / TON': '02 / TON', '03 / TON': '03 / TON', 'Signal on Telegram': 'Signal en Telegram', 'Keep Signal running.': 'Apoya a Signal.',
+    'Find project news, updates, and more on the official Signal OSINT channel.': 'Encuentra noticias y novedades en el canal oficial de Signal OSINT.',
+    'Open Telegram': 'Abrir Telegram', 'Donation': 'Donación', 'Public information. Responsible research.': 'Información pública. Investigación responsable.', 'Donate with TON': 'Donar con TON',
+    'If you find Signal useful, you can support the project through its Monobank donation jar.': 'En esa versión se podía apoyar el proyecto mediante Monobank.',
+    'Send TON directly to this address on the TON mainnet. Verify the address and network in your wallet before sending.': 'Envía TON directamente a esta dirección en la red principal de TON. Verifica la dirección y la red en tu cartera antes de enviar.',
+    'Copy TON address': 'Copiar dirección TON', 'Address copied.': 'Dirección copiada.', 'Copy unavailable. Select and copy the address manually.': 'No se pudo copiar. Selecciona y copia la dirección manualmente.',
+    'SIGNAL / 04 ─ CHANGELOG': 'SIGNAL / 04 ─ REGISTRO DE CAMBIOS', 'Tracking the': 'Seguimiento de', 'signal.': 'Signal.', 'What changed.': 'Qué ha cambiado.',
+    'A record of the improvements made to Signal OSINT, from workspace updates to new features.': 'Un registro de las mejoras de Signal OSINT, desde cambios en el espacio de trabajo hasta nuevas funciones.',
+    'Project updates': 'Actualizaciones del proyecto', '01 / CURRENT UPDATE': '01 / ACTUALIZACIÓN ACTUAL', '02 / PREVIOUS UPDATE': '02 / ACTUALIZACIÓN ANTERIOR', '03 / EARLIER UPDATE': '03 / ACTUALIZACIÓN PREVIA', '04 / EARLIER UPDATE': '04 / ACTUALIZACIÓN PREVIA', '05 / EARLIER UPDATE': '05 / ACTUALIZACIÓN PREVIA', '04 / FOUNDATION': '04 / BASE', '05 / FOUNDATION': '05 / BASE', '06 / FOUNDATION': '06 / BASE',
+    'More sources, another perspective.': 'Más fuentes, otra perspectiva.', 'Explore 445 public profile sites and search for similar images.': 'Explora 445 sitios con perfiles públicos y busca imágenes similares.',
+    'The optional username search now checks 445 sites and APIs, with clear statuses for uncertain or blocked results.': 'La búsqueda opcional por usuario ahora comprueba 445 sitios y API, con estados claros para respuestas inciertas o bloqueadas.',
+    'Search a public image URL using Google Lens or TinEye, or upload a file directly on an external service.': 'Busca una URL pública de imagen con Google Lens o TinEye, o sube un archivo directamente a un servicio externo.',
+    'Search a public image URL using Google Lens or TinEye, or send a photo directly to Google Lens.': 'Busca una URL pública de imagen con Google Lens o TinEye, o envía una foto directamente a Google Lens.',
+    'The interface now switches between English and Spanish, with the preference saved in your browser.': 'La interfaz ahora permite alternar entre inglés y español y guarda la preferencia en tu navegador.',
+    'The Media page now offers TON as the only donation method.': 'La página de medios ahora ofrece TON como único método de donación.', 'Image matches and usernames do not prove identity; verify results independently.': 'Las imágenes o usuarios coincidentes no prueban la identidad; verifica los resultados de forma independiente.',
+    'TON donations were added; the former Monobank option was later removed.': 'Se añadieron donaciones con TON; la antigua opción de Monobank se eliminó posteriormente.',
+    'More places to find a username.': 'Más lugares para buscar un nombre de usuario.',
+    'The people workspace can now check 198 public profile sites in one optional search.': 'El espacio de personas incorporó una búsqueda opcional en 198 sitios con perfiles públicos.',
+    'Search social networks, creator platforms, communities, and developer sites, including Telegram, Instagram, and TikTok.': 'Busca en redes sociales, plataformas de creadores, comunidades y sitios de desarrolladores, como Telegram, Instagram y TikTok.',
+    'Unverified, blocked, or unavailable responses are distinguished from confirmed profile indicators; open the links to check them yourself.': 'Las respuestas no verificadas, bloqueadas o no disponibles se distinguen de los indicadores de perfil; abre los enlaces para comprobarlos.',
+    'The expanded search is optional, and existing sources, history, graph, and exports remain available.': 'La búsqueda ampliada es opcional y las fuentes, el historial, el grafo y las exportaciones existentes siguen disponibles.', 'Matching usernames do not establish that accounts belong to the same person.': 'La coincidencia de usuarios no demuestra que las cuentas pertenezcan a la misma persona.',
+    'A clearer signal.': 'Una señal más clara.', 'A monochrome workspace with optional accounts and new ways to support the project.': 'Un espacio monocromo con cuentas opcionales y nuevas formas de apoyar el proyecto.',
+    'A new homepage presents the project and its workspaces.': 'Una nueva página de inicio presenta el proyecto y sus espacios.', 'A minimal black-and-white design across the site.': 'Un diseño minimalista en blanco y negro en todo el sitio.',
+    'Sign in or create an account; registered accounts are stored in a database and managed in an access-controlled administrator area.': 'Inicia sesión o crea una cuenta; las cuentas se guardan en una base de datos y se gestionan desde un área de administración con control de acceso.',
+    'Passwords are stored as salted Argon2id hashes, and administrator access is checked on the server.': 'Las contraseñas se almacenan como hashes Argon2id con sal y el acceso de administrador se comprueba en el servidor.',
+    'Support Signal directly with TON from the Media page, alongside the existing Monobank donation link.': 'Se añadió el apoyo con TON desde la página de medios junto a la antigua opción de Monobank.',
+    'Choose your language. Explore the dark.': 'Elige tu idioma. Explora la oscuridad.', 'A more focused interface and a new way to follow the project.': 'Una interfaz más enfocada y una nueva forma de seguir el proyecto.',
+    'Switch between English and Russian from the top of the site. Your preference stays in your browser.': 'En esa versión se podía cambiar entre inglés y ruso. La preferencia se guardaba en el navegador.',
+    'A darker, terminal-inspired visual style across the workspaces.': 'Un estilo visual oscuro inspirado en terminales en los espacios de trabajo.', "This update log keeps the project's changes in one place.": 'Este registro reúne los cambios del proyecto en un solo lugar.',
+    'More sources. More context.': 'Más fuentes. Más contexto.', 'The people-search workspace received clearer controls and additional public sources.': 'El espacio de búsqueda de personas recibió controles más claros y fuentes públicas adicionales.',
+    'Bluesky, Mastodon.social, and Wikidata were added to the source selection.': 'Se añadieron Bluesky, Mastodon.social y Wikidata a la selección de fuentes.',
+    'Source presets, status filtering, and improved graph prioritization make results easier to explore.': 'Los conjuntos de fuentes, el filtro de estado y la prioridad del grafo facilitan la exploración de resultados.',
+    'The Media page now links to the Signal Telegram channel and donation jar.': 'La página de medios incorporó enlaces al canal de Telegram y a la antigua opción de donaciones.',
+    'The Signal workspace.': 'El espacio de trabajo Signal.', 'Public-source people searches and passive website investigations in one place.': 'Búsqueda de personas en fuentes públicas e investigación pasiva de sitios en un solo lugar.',
+    'Explore results using relationship graphs and manual search links.': 'Explora los resultados con grafos de relaciones y enlaces de búsqueda manual.', 'Save and compare browser history, and export reports in supported formats.': 'Guarda y compara el historial del navegador y exporta informes en los formatos compatibles.',
+    'Results are not identity verification or a full security audit. Verify sources independently.': 'Los resultados no verifican la identidad ni son una auditoría de seguridad completa. Verifica las fuentes de forma independiente.', 'New entries will appear here as the project is updated.': 'Las nuevas entradas aparecerán aquí conforme se actualice el proyecto.',
+    'SIGNAL / ACCOUNT': 'SIGNAL / CUENTA', 'Your account.': 'Tu cuenta.', 'Sign in or create an account. The public workspaces remain available without signing in.': 'Inicia sesión o crea una cuenta. Los espacios públicos siguen disponibles sin iniciar sesión.',
+    'JavaScript is required to use accounts.': 'Se necesita JavaScript para usar las cuentas.', 'Account access': 'Acceso a la cuenta', 'Sign in': 'Iniciar sesión', 'Create account': 'Crear cuenta', 'PASSWORD': 'CONTRASEÑA', 'CONFIRM PASSWORD': 'CONFIRMAR CONTRASEÑA',
+    '3–32 Latin letters, numbers, dots, underscores or hyphens.': 'De 3 a 32 letras latinas, números, puntos, guiones bajos o guiones.', 'Use a unique password of 10–128 characters.': 'Usa una contraseña única de 10 a 128 caracteres.',
+    'SIGNED IN': 'SESIÓN INICIADA', 'Administrator': 'Administrador', 'Member': 'Miembro', 'Sign out': 'Cerrar sesión', 'Open admin panel': 'Abrir panel de administración',
+    'Change password': 'Cambiar contraseña', 'Changing your password signs you out on all devices.': 'Al cambiar la contraseña se cerrará la sesión en todos los dispositivos.', 'CURRENT PASSWORD': 'CONTRASEÑA ACTUAL', 'NEW PASSWORD': 'NUEVA CONTRASEÑA', 'CONFIRM NEW PASSWORD': 'CONFIRMAR NUEVA CONTRASEÑA', 'Update password': 'Actualizar contraseña',
+    'ACCOUNT SECURITY / 01': 'SEGURIDAD DE LA CUENTA / 01', 'Keep your access private.': 'Mantén privado tu acceso.',
+    'Passwords are stored as salted Argon2id hashes, not as readable text. Do not reuse passwords or share them with anyone.': 'Las contraseñas se almacenan como hashes Argon2id con sal, no como texto legible. No reutilices ni compartas contraseñas.',
+    'Accounts are optional. Search history still stays in your browser unless you choose to save it.': 'Las cuentas son opcionales. El historial de búsqueda solo se guarda en tu navegador si eliges guardarlo.', 'There is currently no automated password recovery. Keep your password safe.': 'Actualmente no hay recuperación automática de contraseñas. Guárdala de forma segura.',
+    'SIGNAL / ADMINISTRATION': 'SIGNAL / ADMINISTRACIÓN', 'Account oversight.': 'Gestión de cuentas.', 'Review registered accounts and manage access. Passwords and password hashes are never shown here.': 'Revisa las cuentas registradas y administra el acceso. Las contraseñas y sus hashes nunca se muestran aquí.',
+    '← Back to account': '← Volver a la cuenta', 'Registered accounts': 'Cuentas registradas', 'Loading accounts…': 'Cargando cuentas…', 'Refresh': 'Actualizar', 'Active': 'Activa', 'Disable': 'Desactivar', 'Enable': 'Activar', 'Protected': 'Protegida',
+    'Showing up to 200 accounts. Administrator accounts cannot be disabled here.': 'Se muestran hasta 200 cuentas. Las cuentas de administrador no pueden desactivarse aquí.', 'Authorized access only.': 'Solo acceso autorizado.',
+    'Disable this account? Its sessions will be signed out.': '¿Desactivar esta cuenta? Sus sesiones se cerrarán.', 'Enable this account?': '¿Activar esta cuenta?',
+    'Passwords do not match.': 'Las contraseñas no coinciden.', 'Unexpected server response.': 'Respuesta inesperada del servidor.', 'Account service is unavailable.': 'El servicio de cuentas no está disponible.',
+    'Accounts are not configured or temporarily unavailable.': 'Las cuentas no están configuradas o no están disponibles temporalmente.', 'Account access requires HTTPS.': 'El acceso a la cuenta requiere HTTPS.',
+    'Username must be 3–32 Latin letters, numbers, dots, underscores or hyphens, starting with a letter or number.': 'El usuario debe tener de 3 a 32 letras latinas, números, puntos, guiones bajos o guiones, y comenzar con una letra o número.',
+    'Password must be 10–128 characters long.': 'La contraseña debe tener entre 10 y 128 caracteres.', 'Password contains invalid characters.': 'La contraseña contiene caracteres no válidos.', 'Enter a valid username.': 'Introduce un usuario válido.',
+    'This username is already in use.': 'Este usuario ya está en uso.', 'Invalid username or password.': 'Usuario o contraseña incorrectos.', 'Too many attempts. Please try again later.': 'Demasiados intentos. Inténtalo más tarde.',
+    'Account service is busy. Please try again.': 'El servicio de cuentas está ocupado. Inténtalo de nuevo.', 'Please sign in first.': 'Inicia sesión primero.', 'Your session could not be verified. Refresh and try again.': 'No se pudo verificar tu sesión. Actualiza e inténtalo de nuevo.',
+    'Current password is incorrect.': 'La contraseña actual es incorrecta.', 'Choose a different new password.': 'Elige una nueva contraseña diferente.', 'Password changed. Sign in again.': 'Contraseña cambiada. Vuelve a iniciar sesión.', 'Account changed. Please sign in again.': 'La cuenta cambió. Vuelve a iniciar sesión.',
+    'Invalid account request.': 'Solicitud de cuenta no válida.', 'Account not found or cannot be changed.': 'No se encontró la cuenta o no se puede modificar.', 'Account is unavailable.': 'La cuenta no está disponible.', 'An internal account error occurred.': 'Se produjo un error interno de la cuenta.',
+    'Expected a JSON request.': 'Se esperaba una solicitud JSON.', 'Invalid request origin.': 'Origen de solicitud no válido.', 'Account | Signal OSINT': 'Cuenta | Signal OSINT', 'Administration | Signal OSINT': 'Administración | Signal OSINT',
+    'Capabilities': 'Funciones', 'How it works': 'Cómo funciona', 'Responsible use': 'Uso responsable', 'Open workspace': 'Abrir espacio de trabajo',
+    'WEB INTELLIGENCE STARTS HERE': 'LA INTELIGENCIA WEB COMIENZA AQUÍ', 'Gather the facts.': 'Reúne los datos.', 'See the connections.': 'Descubre las conexiones.',
+    'Public website data, its digital footprint, and connections in one clear workspace.': 'Datos públicos de sitios web, su huella digital y sus conexiones en un solo espacio.',
+    'Enter a domain, e.g. example.org': 'Introduce un dominio, p. ej., example.org', 'Website domain': 'Dominio del sitio web', 'Investigate': 'Investigar', 'Public data only. Do not include passwords or tokens in the address.': 'Solo datos públicos. No incluyas contraseñas ni tokens en la dirección.',
+    '20 analysis modules': '20 módulos de análisis', 'Visual graph': 'Grafo visual', 'Export reports': 'Exportar informes', 'Example relationship graph': 'Ejemplo de grafo de relaciones', 'Example relationship map': 'Ejemplo de mapa de relaciones',
+    'Example map: domain connected to IP, TLS, DNS, and public sources': 'Mapa de ejemplo: dominio conectado a IP, TLS, DNS y fuentes públicas', 'YOUR DOMAIN': 'TU DOMINIO', 'IP addresses': 'Direcciones IP', 'Sources': 'Fuentes', 'Connections from public sources': 'Conexiones de fuentes públicas', 'EXAMPLE, NOT LIVE DATA': 'EJEMPLO, NO SON DATOS REALES',
+    'search and analysis modules': 'módulos de búsqueda y análisis', 'workspace for results': 'espacio para resultados', 'public website data': 'datos públicos de sitios web', 'interactive relationship map': 'mapa interactivo de relaciones',
+    'CAPABILITIES / 01': 'FUNCIONES / 01', 'The bigger picture,': 'Todo el contexto,', 'in one place.': 'en un solo lugar.', 'From technical profiles to external sources, Signal helps organize data and reveal context.': 'Desde perfiles técnicos hasta fuentes externas, Signal ayuda a organizar los datos y descubrir el contexto.',
+    'Website profile': 'Perfil del sitio web', 'DNS, HTTP, TLS, technologies, headers, links, forms, and other data from the requested page.': 'DNS, HTTP, TLS, tecnologías, cabeceras, enlaces, formularios y otros datos de la página solicitada.',
+    '20 MODULES': '20 MÓDULOS', 'Explore relationships between domains, addresses, resources, and discovered names.': 'Explora las relaciones entre dominios, direcciones, recursos y nombres encontrados.', 'INTERACTIVE MAP': 'MAPA INTERACTIVO',
+    'Compare investigations of the same domain and save results as JSON, Markdown, or SVG.': 'Compara investigaciones del mismo dominio y guarda resultados en JSON, Markdown o SVG.', 'EXPORT RESULTS': 'EXPORTAR RESULTADOS',
+    'More public sources': 'Más fuentes públicas', 'Optionally add Certificate Transparency, RDAP data, and the Wayback Machine archive. Each external source is enabled separately.': 'Añade opcionalmente Certificate Transparency, datos RDAP y Wayback Machine. Cada fuente externa se activa por separado.',
+    'Under your control': 'Bajo tu control', 'History is stored in your browser. Third-party sources are used only when selected.': 'El historial se guarda en tu navegador. Las fuentes externas se usan solo al seleccionarlas.',
+    'HOW IT WORKS / 02': 'CÓMO FUNCIONA / 02', 'From domain': 'Del dominio', 'to understanding.': 'a la comprensión.', 'No complicated setup: enter a target and choose the sources you want to use.': 'Sin configuraciones complicadas: introduce un objetivo y elige las fuentes.',
+    'Enter an address': 'Introduce una dirección', 'Enter a public domain or page address you have permission to investigate.': 'Introduce un dominio público o una dirección que estés autorizado a investigar.', 'Explore the data': 'Explora los datos', 'Modules collect available information and show missing data or errors.': 'Los módulos recopilan información y muestran datos ausentes o errores.',
+    'See connections': 'Ver conexiones', 'Open the graph, compare previous results, and save a report.': 'Abre el grafo, compara resultados anteriores y guarda un informe.', 'Investigate responsibly.': 'Investiga con responsabilidad.',
+    'Signal uses public data and is not a full security audit. Use it only within your authorization.': 'Signal usa datos públicos y no es una auditoría de seguridad completa. Úsalo solo dentro de tus autorizaciones.', 'Passive website analysis': 'Análisis pasivo de sitios web', 'Open investigation': 'Abrir investigación',
+    'History is stored in the browser. When enabled, external sources receive the address.': 'El historial se guarda en el navegador. Al activarlas, las fuentes externas reciben la dirección.',
+    'Browser storage is unavailable. Open the workspace and enter the address there.': 'El almacenamiento del navegador no está disponible. Abre el espacio e introduce allí la dirección.',
+    'Run a search first.': 'Ejecuta una búsqueda primero.', 'Run an investigation first.': 'Ejecuta una investigación primero.', 'Delete saved people-search history in this browser?': '¿Eliminar el historial de búsqueda de personas de este navegador?', 'Delete all local investigation history?': '¿Eliminar todo el historial local de investigaciones?',
+    'Enter a username, name or ORCID iD.': 'Introduce un usuario, nombre u ORCID iD.', 'Enter a valid ORCID iD.': 'Introduce un ORCID iD válido.', 'ORCID must have 16 characters, for example 0000-0002-1825-0097.': 'El ORCID debe tener 16 caracteres, por ejemplo 0000-0002-1825-0097.', 'The ORCID check digit is invalid.': 'El dígito de control del ORCID no es válido.',
+    'Use up to 39 Latin letters, numbers, dots, hyphens or underscores for the username; do not enter a URL or email address.': 'Usa hasta 39 letras latinas, números, puntos, guiones o guiones bajos para el usuario; no introduzcas una URL ni correo electrónico.',
+    'Names may contain letters, spaces, hyphens and apostrophes, up to 100 characters.': 'Los nombres pueden contener letras, espacios, guiones y apóstrofes, hasta 100 caracteres.', 'Context may contain letters, numbers, spaces, dots and hyphens, up to 80 characters.': 'El contexto puede contener letras, números, espacios, puntos y guiones, hasta 80 caracteres.',
+    'An unknown source was selected.': 'Se seleccionó una fuente desconocida.', 'Select at least one source that matches the information you entered.': 'Selecciona al menos una fuente adecuada para los datos introducidos.',
+    'Enter a full HTTPS link to a public profile.': 'Introduce un enlace HTTPS completo a un perfil público.', 'Use an HTTPS link without credentials or a nonstandard port.': 'Usa un enlace HTTPS sin credenciales ni puerto no estándar.',
+    'Use a supported GitHub, GitLab, DEV, Hacker News, Bluesky handle, or Mastodon.social profile link.': 'Usa un enlace compatible de GitHub, GitLab, DEV, Hacker News, Bluesky o Mastodon.social.',
+    'Use a supported GitHub, GitLab, DEV, Hacker News, Bluesky, Mastodon.social, Instagram, TikTok, or Telegram profile link.': 'Usa un enlace compatible de GitHub, GitLab, DEV, Hacker News, Bluesky, Mastodon.social, Instagram, TikTok o Telegram.',
+    'Enter a supported public profile link.': 'Introduce un enlace de perfil público compatible.', 'Enter a profile link.': 'Introduce un enlace de perfil.', 'Enter an ORCID iD or an https://orcid.org/... link.': 'Introduce un ORCID iD o un enlace https://orcid.org/...',
+    'The username and profile URL do not match. Correct one of them.': 'El usuario y la URL del perfil no coinciden. Corrige uno de ellos.', 'Server error': 'Error del servidor', 'Unexpected server response': 'Respuesta inesperada del servidor', 'Unexpected response format': 'Formato de respuesta inesperado',
+    'Search completed, but history could not be saved in this browser.': 'Búsqueda completada, pero no se pudo guardar el historial en este navegador.', 'Investigation completed, but history could not be saved in this browser.': 'Investigación completada, pero no se pudo guardar el historial en este navegador.',
+    'Invalid host or request origin.': 'Servidor u origen de solicitud no válido.', 'Check the request format and size.': 'Comprueba el formato y tamaño de la solicitud.', 'The server is busy. Please try again in a few seconds.': 'El servidor está ocupado. Inténtalo de nuevo en unos segundos.',
+    'The shared investigation limit has been reached. Please try again later.': 'Se alcanzó el límite compartido de investigaciones. Inténtalo más tarde.', 'An internal error occurred. Check your input and try again.': 'Se produjo un error interno. Comprueba los datos e inténtalo de nuevo.',
+    'The source response exceeded the size limit.': 'La respuesta de la fuente superó el límite de tamaño.', 'The source returned an unsupported content encoding.': 'La fuente devolvió una codificación no compatible.',
+    'Enter a domain or address up to 2048 characters long.': 'Introduce un dominio o dirección de hasta 2048 caracteres.', 'The address contains invalid characters.': 'La dirección contiene caracteres no válidos.',
+    'Only ports 80 and 443 are allowed.': 'Solo se permiten los puertos 80 y 443.', 'Enter a valid public HTTP(S) address without credentials.': 'Introduce una dirección HTTP(S) pública válida sin credenciales.', 'Only public IP addresses are allowed. Local and mixed DNS responses are blocked.': 'Solo se permiten IP públicas. Se bloquean las respuestas DNS locales y mixtas.',
+    'Collecting data…': 'Recopilando datos…', 'Signal — explore the open web': 'Signal — explora la web abierta', 'Signal OSINT — website intelligence': 'Signal OSINT — inteligencia web', 'SIGNAL / People OSINT': 'SIGNAL / Búsqueda de personas',
+    'Media & Support | Signal OSINT': 'Medios y apoyo | Signal OSINT', 'Updates | Signal OSINT': 'Actualizaciones | Signal OSINT', 'Signal OSINT — open-source intelligence': 'Signal OSINT — inteligencia de fuentes abiertas',
+    'HOME': 'INICIO', 'Find the signal in': 'Encuentra la señal en', 'public data.': 'datos públicos.', 'SIGNAL / 00 ─ OVERVIEW': 'SIGNAL / 00 ─ RESUMEN', 'Find the signal in public data.': 'Encuentra la señal en los datos públicos.',
+    'Signal OSINT is a workspace for responsible open-source research. Look up public profiles by username, name, or ORCID iD, investigate websites without touching them, and export structured reports. All results come from public sources.': 'Signal OSINT es un espacio para investigar responsablemente fuentes abiertas. Busca perfiles públicos por usuario, nombre u ORCID iD, investiga sitios y exporta informes estructurados. Los resultados proceden de fuentes públicas.',
+    'Start people search': 'Iniciar búsqueda de personas', 'Investigate a website': 'Investigar un sitio web', '03 / PRINCIPLES': '03 / PRINCIPIOS', 'Find public profiles.': 'Encuentra perfiles públicos.',
+    'Search by username, full name, or ORCID iD across more than a dozen public sources, then explore the connections in an interactive graph.': 'Busca por usuario, nombre completo u ORCID iD en fuentes públicas y explora las conexiones en un grafo interactivo.',
+    'GitHub, GitLab, Wikipedia, Bluesky, Mastodon, and more': 'GitHub, GitLab, Wikipedia, Bluesky, Mastodon y más', 'Manual search links for search engines': 'Enlaces manuales para buscadores', 'Local history with JSON and Markdown exports': 'Historial local con exportación JSON y Markdown', 'Open the workspace': 'Abrir el espacio de trabajo',
+    'Investigate websites passively.': 'Investiga sitios web de forma pasiva.', 'Enter an address and Signal checks DNS, HTTP, TLS, security headers, links, technology hints, and public metadata in a few bounded requests.': 'Introduce una dirección y Signal comprobará DNS, HTTP, TLS, cabeceras, enlaces, tecnologías y metadatos públicos mediante solicitudes limitadas.',
+    '20 modules, from DNS to sitemap': '20 módulos, desde DNS hasta sitemap', 'Relationship graph and saved history': 'Grafo de relaciones e historial guardado', 'JSON, Markdown, and SVG exports': 'Exportación JSON, Markdown y SVG', 'Public sources only.': 'Solo fuentes públicas.',
+    'Signal does not search leaked databases, test passwords, or exploit anything. A result is a hint, never a proof of identity or of safety.': 'Signal no busca datos filtrados, prueba contraseñas ni explota vulnerabilidades. Un resultado es una pista, no una prueba de identidad ni seguridad.',
+    'No leaked data, scanning, or exploitation': 'Sin datos filtrados, escaneo ni explotación', 'Verify every finding independently': 'Verifica cada hallazgo de forma independiente', 'Respect the law and privacy': 'Respeta la ley y la privacidad', 'See what changed': 'Ver los cambios',
+    'HOW IT WORKS': 'CÓMO FUNCIONA', 'Choose a workspace': 'Elige un espacio de trabajo', 'Open People to search profiles or Sites to inspect an address. No account is required for either.': 'Abre Personas para buscar perfiles o Sitios para inspeccionar una dirección. No se necesita cuenta.',
+    'Review the evidence': 'Revisa las pruebas', 'Filter results, open the source links, explore the relationship graph, and compare saved searches.': 'Filtra resultados, abre las fuentes, explora el grafo y compara búsquedas guardadas.',
+    'Export and verify': 'Exporta y verifica', 'Download JSON, Markdown, or SVG, then confirm your findings through independent sources. Accounts stay optional.': 'Descarga JSON, Markdown o SVG y confirma los hallazgos con fuentes independientes. Las cuentas son opcionales.',
+    'Follow and support Signal.': 'Sigue y apoya a Signal.', 'News, updates, and donations live on the Media page. The public workspaces stay free.': 'Noticias, novedades y donaciones en la página de medios. Los espacios públicos siguen siendo gratuitos.', 'Media and support': 'Medios y apoyo',
+    '03 / REVERSE IMAGE SEARCH': '03 / BÚSQUEDA INVERSA DE IMÁGENES', 'Find pages with the same or similar image using Google Lens or TinEye. Results do not identify a person.': 'Busca páginas con imágenes iguales o similares usando Google Lens o TinEye. Los resultados no identifican a una persona.',
+    'PUBLIC IMAGE URL': 'URL PÚBLICA DE LA IMAGEN', 'Use a public image link without passwords or private tokens. The selected service receives this URL when opened.': 'Usa un enlace público de imagen sin contraseñas ni tokens privados. El servicio seleccionado recibe la URL al abrirlo.',
+    'PREPARE IMAGE SEARCH': 'PREPARAR BÚSQUEDA DE IMAGEN', 'PHOTO FROM DEVICE': 'FOTO DEL DISPOSITIVO',
+    'When you press the button, the image is sent directly to Google Lens. Signal does not receive or store the file.': 'Al pulsar el botón, la imagen se envía directamente a Google Lens. Signal no recibe ni guarda el archivo.',
+    'SEARCH PHOTO WITH GOOGLE LENS': 'BUSCAR FOTO CON GOOGLE LENS', 'Choose a JPG, PNG, WebP, or GIF image up to 10 MB.': 'Elige una imagen JPG, PNG, WebP o GIF de hasta 10 MB.',
+    'Opening Google Lens. The selected image is sent directly to Google.': 'Abriendo Google Lens. La imagen seleccionada se envía directamente a Google.',
+    'You can also open a service below and upload a photo there yourself.': 'También puedes abrir un servicio y subir allí una foto.',
+    'External services have their own privacy policies and may store images or URLs. Search only images you have permission to use.': 'Los servicios externos tienen sus propias políticas de privacidad y pueden guardar imágenes o URL. Busca solo imágenes que estés autorizado a usar.',
+    'Links are ready. Open a service to run the search.': 'Los enlaces están listos. Abre un servicio para iniciar la búsqueda.', 'Enter a valid public HTTP or HTTPS image URL without credentials.': 'Introduce una URL pública de imagen HTTP o HTTPS válida, sin credenciales.',
+  };
+
   const patterns = [
-    [/^(\d+) sources? selected · (\d+) applicable to the current input$/, (_, a, b) => `Выбрано источников: ${a} · подходят введённым данным: ${b}`],
-    [/^MODULES: (\d+) \/ PUBLIC SOURCE DATA$/, (_, n) => `МОДУЛЕЙ: ${n} / ОТКРЫТЫЕ ДАННЫЕ`],
-    [/^UPDATED: (.+)$/, (_, date) => `ОБНОВЛЕНО: ${date}`],
-    [/^CHANGED: (\d+)$/, (_, n) => `ИЗМЕНЕНО: ${n}`],
-    [/^CHANGES: (\d+)$/, (_, n) => `ИЗМЕНЕНИЙ: ${n}`],
-    [/^Comparison: (.+)$/, (_, host) => `Сравнение: ${host}`],
-    [/^Investigation time: ([\d.]+) s$/, (_, n) => `Время исследования: ${n} с`],
-    [/^\/ (\d+) modules$/, (_, n) => `/ ${n} модулей`],
-    [/^\+ more (\d+) modules$/, (_, n) => `+ ещё ${n} модулей`],
-    [/^Format: (\+\d+)\nThe basic format check passed\. The number, carrier, and owner are not verified\.$/, (_, n) => `Формат: ${n}\nУпрощённая проверка формата пройдена. Сам номер, оператор и владелец не проверены.`],
-    [/^Showing (\d+) public (repositories|organizations), up to 20\. The list may be incomplete\.$/, (_, n, type) => `Показано: ${n} публичных ${type === 'repositories' ? 'репозиториев' : 'организаций'} (до 20). Список может быть неполным.`],
-    [/^Found (\d+) articles\. Namesakes and unrelated results are possible\.$/, (_, n) => `Найдено статей: ${n}. Возможны тёзки и нерелевантные результаты.`],
-    [/^Found (\d+) entities\. Results can include unrelated people or subjects\.$/, (_, n) => `Найдено записей: ${n}. Результаты могут относиться к другим людям или темам.`],
-    [/^Found (\d+) display-name results\. This is a search, not identity verification\.$/, (_, n) => `Найдено результатов по отображаемому имени: ${n}. Это поиск, а не проверка личности.`],
-    [/^Found (\d+) author-name results\. Unrelated matches are possible\.$/, (_, n) => `Найдено результатов по имени автора: ${n}. Возможны нерелевантные совпадения.`],
-    [/^Prepared (\d+) links\. Search engines were not queried; open and verify the results yourself\.$/, (_, n) => `Подготовлено ссылок: ${n}. Поисковые системы не опрашивались; откройте и проверьте результаты самостоятельно.`],
-    [/^No public profile was found for (.+)\. Other Bluesky domains were not checked\.$/, (_, handle) => `Публичный профиль ${handle} не найден. Другие домены Bluesky не проверялись.`],
-    [/^System DNS returned (\d+) public addresses\.$/, (_, n) => `Системный DNS вернул публичных адресов: ${n}.`],
-    [/^HTTP (\d+); response time (\d+) ms\.$/, (_, code, ms) => `HTTP ${code}; время ответа ${ms} мс.`],
-    [/^Found (\d+) of (\d+) headers\. Missing headers do not always indicate a vulnerability\.$/, (_, a, b) => `Найдено заголовков: ${a} из ${b}. Их отсутствие не всегда означает уязвимость.`],
-    [/^Found (\d+) Set-Cookie headers\. Values are not stored\.$/, (_, n) => `Найдено заголовков Set-Cookie: ${n}. Значения не сохраняются.`],
-    [/^Found (\d+) clues\. Data may be incomplete or misleading\.$/, (_, n) => `Найдено подсказок: ${n}. Данные могут быть неполными или подменёнными.`],
-    [/^Links: (\d+); external: (\d+)\. Additional pages were not visited\.$/, (_, a, b) => `Ссылок: ${a}; внешних: ${b}. Дополнительные страницы не посещались.`],
-    [/^Forms on page: (\d+)\. Forms are not submitted; field values are not saved\.$/, (_, n) => `Форм на странице: ${n}. Формы не отправляются, значения полей не сохраняются.`],
-    [/^HTML resources: (\d+); external domains: (\d+)\. Resources were not loaded\.$/, (_, a, b) => `Ресурсов в HTML: ${a}; внешних доменов: ${b}. Ресурсы не загружались.`],
-    [/^Found (\d+) names in public certificates \(up to 100\)\. Their current existence is not confirmed\.$/, (_, n) => `Найдено имён в публичных сертификатах: ${n} (до 100). Их текущее существование не подтверждено.`],
-    [/^HTTP (\d+|no response); (\d+) directives recognized\.$/, (_, code, n) => `HTTP ${code === 'no response' ? 'нет ответа' : code}; распознано директив: ${n}.`],
-    [/^HTTP (\d+|no response); file unavailable or not recognized\.$/, (_, code) => `HTTP ${code === 'no response' ? 'нет ответа' : code}; файл недоступен или не распознан.`],
-    [/^\/sitemap\.xml: HTTP (\d+|no response); (\d+) links read \(up to 100\)\.$/, (_, code, n) => `/sitemap.xml: HTTP ${code === 'no response' ? 'нет ответа' : code}; прочитано ссылок: ${n} (до 100).`],
-    [/^\/sitemap\.xml: HTTP (\d+|no response); XML is unavailable, invalid or exceeds the limit\.$/, (_, code) => `/sitemap.xml: HTTP ${code === 'no response' ? 'нет ответа' : code}; XML недоступен, некорректен или превышает лимит.`],
-    [/^\/\.well-known\/security\.txt: HTTP (\d+|no response); (\d+) fields recognized\.$/, (_, code, n) => `/.well-known/security.txt: HTTP ${code === 'no response' ? 'нет ответа' : code}; распознано полей: ${n}.`],
-    [/^\/\.well-known\/security\.txt: HTTP (\d+|no response); file not found or not recognized\.$/, (_, code) => `/.well-known/security.txt: HTTP ${code === 'no response' ? 'нет ответа' : code}; файл не найден или не распознан.`],
-    [/^Source returned HTTP (\d+)( \(possibly rate-limited\))?$/, (_, code, limited) => `Источник вернул HTTP ${code}${limited ? ' (возможно, превышен лимит запросов)' : ''}`],
-    [/^(.+) · (username|name)( \(sign-in may be required\))?$/, (_, service, tag, login) => `${service.replace(/ search$/, ' поиск')} · ${tag === 'username' ? 'ник' : 'имя'}${login ? ' (может потребоваться вход)' : ''}`],
-    [/^Search query · search query$/, () => 'Поисковый запрос · поисковый запрос'],
-    [/^(.+) · (search query|profile|repository|organization|article)$/, (_, label, kind) => `${label} · ${ru[kind]}`],
-    [/^(ERROR \/ |Investigation failed: |Source unavailable: |Request failed: |Could not resolve the domain via DNS: |Could not reach the source: )([\s\S]+)$/, (_, prefix, detail) => ({'ERROR / ': 'ОШИБКА / ', 'Investigation failed: ': 'Не удалось выполнить исследование: ', 'Source unavailable: ': 'Источник недоступен: ', 'Request failed: ': 'Запрос не выполнен: ', 'Could not resolve the domain via DNS: ': 'Не удалось разрешить домен через DNS: ', 'Could not reach the source: ': 'Не удалось связаться с источником: '}[prefix] + translate(detail))],
-    [/^(.*) · Search result; identity is not confirmed\.$/, (_, description) => `${description} · Результат поиска; личность не подтверждена.`],
-    [/^Reputation: (.+) · identity is not confirmed$/, (_, n) => `Репутация: ${n} · личность не подтверждена`],
-    [/^DOI: (.+) · authorship is not confirmed by a name match$/, (_, doi) => `DOI: ${doi} · авторство по совпадению имени не подтверждено`],
-    [/^★ (\d+) · language not specified$/, (_, n) => `★ ${n} · язык не указан`],
-    [/^(.+) · status$/, (_, title) => `${translate(title)} · статус`],
-    [/^Form (\d+)$/, (_, n) => `Форма ${n}`],
-    [/^Total accounts: (\d+)$/, (_, n) => `Всего аккаунтов: ${n}`]
+    [/^(\d+) sources? selected · (\d+) applicable to the current input$/, (_, a, b) => `${a} fuentes seleccionadas · ${b} aplicables a los datos introducidos`],
+    [/^MODULES: (\d+) \/ PUBLIC SOURCE DATA$/, (_, n) => `MÓDULOS: ${n} / DATOS DE FUENTES PÚBLICAS`],
+    [/^UPDATED: (.+)$/, (_, date) => `ACTUALIZADO: ${date}`], [/^CHANGED: (\d+)$/, (_, n) => `CAMBIADOS: ${n}`], [/^CHANGES: (\d+)$/, (_, n) => `CAMBIOS: ${n}`],
+    [/^Comparison: (.+)$/, (_, host) => `Comparación: ${host}`], [/^Investigation time: ([\d.]+) s$/, (_, n) => `Tiempo de investigación: ${n} s`],
+    [/^\/ (\d+) modules$/, (_, n) => `/ ${n} módulos`], [/^\+ more (\d+) modules$/, (_, n) => `+ ${n} módulos más`],
+    [/^Format: (\+\d+)\nThe basic format check passed\. The number, carrier, and owner are not verified\.$/, (_, n) => `Formato: ${n}\nLa comprobación básica del formato ha terminado. El número, la operadora y el propietario no están verificados.`],
+    [/^Showing (\d+) public (repositories|organizations), up to 20\. The list may be incomplete\.$/, (_, n, type) => `Se muestran ${n} ${type === 'repositories' ? 'repositorios' : 'organizaciones'} públicos, hasta 20. La lista puede estar incompleta.`],
+    [/^Found (\d+) articles\. Namesakes and unrelated results are possible\.$/, (_, n) => `Se encontraron ${n} artículos. Puede haber homónimos y resultados no relacionados.`],
+    [/^Found (\d+) entities\. Results can include unrelated people or subjects\.$/, (_, n) => `Se encontraron ${n} entidades. Pueden incluir personas o temas no relacionados.`],
+    [/^Found (\d+) display-name results\. This is a search, not identity verification\.$/, (_, n) => `Se encontraron ${n} resultados por nombre visible. Es una búsqueda, no una verificación de identidad.`],
+    [/^Found (\d+) author-name results\. Unrelated matches are possible\.$/, (_, n) => `Se encontraron ${n} resultados por nombre de autor. Puede haber coincidencias no relacionadas.`],
+    [/^Prepared (\d+) links\. Search engines were not queried; open and verify the results yourself\.$/, (_, n) => `Se prepararon ${n} enlaces. No se consultaron buscadores; abre y verifica los resultados.`],
+    [/^No public profile was found for (.+)\. Other Bluesky domains were not checked\.$/, (_, handle) => `No se encontró un perfil público para ${handle}. No se comprobaron otros dominios de Bluesky.`],
+    [/^System DNS returned (\d+) public addresses\.$/, (_, n) => `El DNS del sistema devolvió ${n} direcciones públicas.`],
+    [/^HTTP (\d+); response time (\d+) ms\.$/, (_, code, ms) => `HTTP ${code}; tiempo de respuesta ${ms} ms.`],
+    [/^Found (\d+) of (\d+) headers\. Missing headers do not always indicate a vulnerability\.$/, (_, a, b) => `Se encontraron ${a} de ${b} cabeceras. Su ausencia no siempre indica una vulnerabilidad.`],
+    [/^Found (\d+) Set-Cookie headers\. Values are not stored\.$/, (_, n) => `Se encontraron ${n} cabeceras Set-Cookie. No se almacenan sus valores.`],
+    [/^Found (\d+) clues\. Data may be incomplete or misleading\.$/, (_, n) => `Se encontraron ${n} indicios. Los datos pueden estar incompletos o ser engañosos.`],
+    [/^Links: (\d+); external: (\d+)\. Additional pages were not visited\.$/, (_, a, b) => `Enlaces: ${a}; externos: ${b}. No se visitaron otras páginas.`],
+    [/^Forms on page: (\d+)\. Forms are not submitted; field values are not saved\.$/, (_, n) => `Formularios en la página: ${n}. No se envían formularios ni se guardan los valores.`],
+    [/^HTML resources: (\d+); external domains: (\d+)\. Resources were not loaded\.$/, (_, a, b) => `Recursos HTML: ${a}; dominios externos: ${b}. No se cargaron recursos.`],
+    [/^Found (\d+) names in public certificates \(up to 100\)\. Their current existence is not confirmed\.$/, (_, n) => `Se encontraron ${n} nombres en certificados públicos (hasta 100). No se confirma su existencia actual.`],
+    [/^HTTP (\d+|no response); (\d+) directives recognized\.$/, (_, code, n) => `HTTP ${code === 'no response' ? 'sin respuesta' : code}; ${n} directivas reconocidas.`],
+    [/^HTTP (\d+|no response); file unavailable or not recognized\.$/, (_, code) => `HTTP ${code === 'no response' ? 'sin respuesta' : code}; archivo no disponible o no reconocido.`],
+    [/^\/sitemap\.xml: HTTP (\d+|no response); (\d+) links read \(up to 100\)\.$/, (_, code, n) => `/sitemap.xml: HTTP ${code === 'no response' ? 'sin respuesta' : code}; ${n} enlaces leídos (hasta 100).`],
+    [/^\/sitemap\.xml: HTTP (\d+|no response); XML is unavailable, invalid or exceeds the limit\.$/, (_, code) => `/sitemap.xml: HTTP ${code === 'no response' ? 'sin respuesta' : code}; XML no disponible, no válido o superior al límite.`],
+    [/^\/\.well-known\/security\.txt: HTTP (\d+|no response); (\d+) fields recognized\.$/, (_, code, n) => `/.well-known/security.txt: HTTP ${code === 'no response' ? 'sin respuesta' : code}; ${n} campos reconocidos.`],
+    [/^\/\.well-known\/security\.txt: HTTP (\d+|no response); file not found or not recognized\.$/, (_, code) => `/.well-known/security.txt: HTTP ${code === 'no response' ? 'sin respuesta' : code}; archivo no encontrado o no reconocido.`],
+    [/^Source returned HTTP (\d+)( \(possibly rate-limited\))?$/, (_, code, limited) => `La fuente devolvió HTTP ${code}${limited ? ' (posible límite de solicitudes)' : ''}`],
+    [/^(.+) · (username|name)( \(sign-in may be required\))?$/, (_, service, tag, login) => `${service} · ${tag === 'username' ? 'usuario' : 'nombre'}${login ? ' (puede requerir inicio de sesión)' : ''}`],
+    [/^Search query · search query$/, () => 'Consulta de búsqueda · consulta de búsqueda'], [/^(.+) · (search query|profile|repository|organization|article)$/, (_, label, kind) => `${label} · ${es[kind]}`],
+    [/^(ERROR \/ |Investigation failed: |Source unavailable: |Request failed: |Could not resolve the domain via DNS: |Could not reach the source: )([\s\S]+)$/, (_, prefix, detail) => ({'ERROR / ': 'ERROR / ', 'Investigation failed: ': 'Falló la investigación: ', 'Source unavailable: ': 'Fuente no disponible: ', 'Request failed: ': 'Falló la solicitud: ', 'Could not resolve the domain via DNS: ': 'No se pudo resolver el dominio mediante DNS: ', 'Could not reach the source: ': 'No se pudo acceder a la fuente: '}[prefix] + translate(detail))],
+    [/^(.*) · Search result; identity is not confirmed\.$/, (_, description) => `${description} · Resultado de búsqueda; identidad no confirmada.`],
+    [/^Reputation: (.+) · identity is not confirmed$/, (_, n) => `Reputación: ${n} · identidad no confirmada`], [/^DOI: (.+) · authorship is not confirmed by a name match$/, (_, doi) => `DOI: ${doi} · la coincidencia de nombre no confirma la autoría`],
+    [/^★ (\d+) · language not specified$/, (_, n) => `★ ${n} · idioma no especificado`], [/^(.+) · status$/, (_, title) => `${translate(title)} · estado`], [/^Form (\d+)$/, (_, n) => `Formulario ${n}`], [/^Total accounts: (\d+)$/, (_, n) => `Cuentas totales: ${n}`]
   ];
 
   function translate(value) {
@@ -369,25 +621,25 @@
     if (!parts || !parts[2]) return raw;
     const lead = parts[1], trail = parts[3];
     const text = parts[2].replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ');
-    if (Object.prototype.hasOwnProperty.call(ru, text)) return lead + ru[text] + trail;
+    if (Object.prototype.hasOwnProperty.call(es, text)) return lead + es[text] + trail;
     for (const [pattern, render] of patterns) {
       const match = text.match(pattern);
       if (match) return lead + render(...match) + trail;
     }
     // Keep visual icons and arrows while translating their adjacent label.
     const decorated = text.match(/^([◉◈⌘◇◷●◎✧]\s+)?(.+?)(\s*[↗↓→])?$/);
-    if (decorated && Object.prototype.hasOwnProperty.call(ru, decorated[2])) {
-      return lead + (decorated[1] || '') + ru[decorated[2]] + (decorated[3] || '') + trail;
+    if (decorated && Object.prototype.hasOwnProperty.call(es, decorated[2])) {
+      return lead + (decorated[1] || '') + es[decorated[2]] + (decorated[3] || '') + trail;
     }
     return raw;
   }
 
-  // Search filters can match both English labels and their Russian translations
+  // Search filters can match both English labels and their Spanish translations
   // without changing the underlying results or stored reports.
   window.signalI18nText = translate;
 
   let language = 'en';
-  try { if (localStorage.getItem('signal-language') === 'ru') language = 'ru'; } catch (e) { /* English remains available without storage. */ }
+  try { if (localStorage.getItem('signal-language') === 'es') language = 'es'; } catch (e) { /* English remains available without storage. */ }
 
   function addNavigation() {
     const headerNav = document.querySelector('.header nav');
@@ -474,7 +726,7 @@
     let state = originals.get(node);
     if (!state) state = { source: current, last: current };
     else if (current !== state.last) state.source = current;
-    const rendered = language === 'ru' ? translate(state.source) : state.source;
+    const rendered = language === 'es' ? translate(state.source) : state.source;
     state.last = rendered; originals.set(node, state);
     if (current !== rendered) node.data = rendered;
   }
@@ -489,7 +741,7 @@
       let state = states[name];
       if (!state) state = states[name] = { source: current, last: current };
       else if (current !== state.last) state.source = current;
-      const rendered = language === 'ru' ? translate(state.source) : state.source;
+      const rendered = language === 'es' ? translate(state.source) : state.source;
       state.last = rendered;
       if (current !== rendered) element.setAttribute(name, rendered);
     }
@@ -508,10 +760,10 @@
 
   function updateLanguage(save) {
     document.documentElement.lang = language;
-    document.title = language === 'ru' ? translate(originalTitle) : originalTitle;
-    switcher.textContent = language === 'en' ? 'RU' : 'EN';
-    switcher.setAttribute('aria-label', language === 'en' ? 'Switch to Russian' : 'Переключить на английский');
-    switcher.title = language === 'en' ? 'Переключить на русский' : 'Switch to English';
+    document.title = language === 'es' ? translate(originalTitle) : originalTitle;
+    switcher.textContent = language === 'en' ? 'ES' : 'EN';
+    switcher.setAttribute('aria-label', language === 'en' ? 'Switch to Spanish' : 'Switch to English');
+    switcher.title = language === 'en' ? 'Cambiar a español' : 'Switch to English';
     if (save) { try { localStorage.setItem('signal-language', language); } catch (e) { /* Use this page's language only. */ } }
     applyTree(document.body);
   }
@@ -524,12 +776,12 @@
     }
   });
   observer.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: trackedAttributes });
-  switcher.addEventListener('click', () => { language = language === 'en' ? 'ru' : 'en'; updateLanguage(true); });
+  switcher.addEventListener('click', () => { language = language === 'en' ? 'es' : 'en'; updateLanguage(true); });
   window.addEventListener('storage', event => {
-    if (event.key === 'signal-language') { language = event.newValue === 'ru' ? 'ru' : 'en'; updateLanguage(false); }
+    if (event.key === 'signal-language') { language = event.newValue === 'es' ? 'es' : 'en'; updateLanguage(false); }
   });
   const nativeAlert = window.alert.bind(window), nativeConfirm = window.confirm.bind(window);
-  window.alert = message => nativeAlert(language === 'ru' ? translate(message) : message);
-  window.confirm = message => nativeConfirm(language === 'ru' ? translate(message) : message);
+  window.alert = message => nativeAlert(language === 'es' ? translate(message) : message);
+  window.confirm = message => nativeConfirm(language === 'es' ? translate(message) : message);
   updateLanguage(false);
 })();

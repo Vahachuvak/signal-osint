@@ -220,7 +220,7 @@ class APITests(unittest.TestCase):
         status, body = self.request('GET', '/media')
         self.assertEqual(status, 200)
         self.assertIn(b'https://t.me/Signal_osint', body)
-        self.assertIn(b'https://send.monobank.ua/jar/2BjVhhHkY6', body)
+        self.assertNotIn(b'send.monobank.ua', body)
         self.assertIn(b'UQDUCRzOw8x8DCQ5VOrvt--vr0Se1Y5hUoP4nwg9qQoWjKc0', body)
         self.assertEqual(self.request('GET', '/media/')[0], 200)
         self.assertEqual(self.request('GET', '/signal.css')[0], 200)
@@ -251,6 +251,39 @@ class APITests(unittest.TestCase):
         self.assertEqual(checker.call_count, len(people.PLATFORMS))
         self.assertEqual(sum(m['id'].startswith('platform_') for m in data['modules']), len(people.PLATFORMS))
         self.assertEqual(next(m for m in data['modules'] if m['id'] == 'platform_telegram')['status'], 'unverified')
+
+    def test_photo_upload_csp_is_limited_to_people_and_google_lens(self):
+        for path, allowed in [('/people', True), ('/people/', True), ('/', False), ('/account', False)]:
+            with self.subTest(path=path):
+                conn = http.client.HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+                try:
+                    conn.request('GET', path)
+                    response = conn.getresponse()
+                    policy = response.getheader('Content-Security-Policy')
+                    response.read()
+                finally:
+                    conn.close()
+                self.assertIn("form-action 'self'", policy)
+                self.assertEqual('https://lens.google.com' in policy, allowed)
+                self.assertEqual('https://www.google.com' in policy, allowed)
+                self.assertIn("connect-src 'self'", policy)
+        status, script = self.request('GET', '/people_enhancements.js')
+        self.assertEqual(status, 200)
+        self.assertIn(b'action="https://lens.google.com/upload"', script)
+        self.assertIn(b'name="encoded_image"', script)
+
+    def test_spanish_ui_covers_existing_labels_and_replaces_russian_switch(self):
+        import ast
+        import re
+        source = (site_app.ROOT / 'signal_i18n.js').read_text(encoding='utf-8')
+        quoted = r'''(?:'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")'''
+        def keys(name):
+            block = source.split('const ' + name + ' = {', 1)[1].split('  };', 1)[0]
+            return {ast.literal_eval(value) for value in re.findall('(' + quoted + r')\s*:', block)}
+        self.assertFalse(keys('ru') - keys('es'))
+        self.assertIn("language === 'en' ? 'es' : 'en'", source)
+        self.assertNotIn("language === 'en' ? 'ru' : 'en'", source)
+        self.assertIn("localStorage.getItem('signal-language') === 'es'", source)
 
     def test_cross_origin_and_host_rejected(self):
         self.assertEqual(self.request('GET', '/', headers={'Host': 'evil.example'})[0], 403)

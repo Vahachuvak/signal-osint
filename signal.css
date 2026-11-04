@@ -71,6 +71,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .source-presets { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 13px; }
 .source-presets .button { padding: 6px 8px; font-size: 10px; }
 .source-count { color: #a8a6a1; font-size: 10px; line-height: 1.5; margin: 12px 0 0; }
+.reverse-image-tool { border-top: 1px solid var(--line); padding: 17px; }
+.reverse-image-tool .subtle { margin: 10px 0; }
+.reverse-image-tool .hint { margin: 8px 0; }
+.image-search-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.image-search-actions[hidden] { display: none; }
+.image-search-actions .button { display: inline-flex; align-items: center; text-decoration: none; }
 .status-filter { display: flex; align-items: center; gap: 7px; color: #a8a6a1; font-size: 10px; white-space: nowrap; }
 .status-filter select { background: #111316; color: #f3f0eb; border: 1px solid #43464a; border-radius: 6px; padding: 7px; font: inherit; }
 .card[hidden] { display: none; }

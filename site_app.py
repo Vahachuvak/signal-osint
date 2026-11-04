@@ -26,11 +26,11 @@ def _json(value):
     return json.dumps(value, ensure_ascii=False).encode('utf-8')
 
 
-def _respond(start_response, status, content, content_type='text/html; charset=utf-8', extra=()):
+def _respond(start_response, status, content, content_type='text/html; charset=utf-8', extra=(), form_action="'self'"):
     headers = [('Content-Type', content_type), ('Content-Length', str(len(content))),
                ('Cache-Control', 'no-store'), ('X-Content-Type-Options', 'nosniff'),
                ('X-Frame-Options', 'DENY'), ('Referrer-Policy', 'no-referrer'),
-               ('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")]
+               ('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action " + form_action)]
     start_response(status, headers + list(extra))
     return [content]
 
@@ -102,7 +102,10 @@ def application(environ, start_response):
                     'media.html' if path in ('/media', '/media/') else
                     'updates.html' if path in ('/updates', '/updates/') else
                     'account.html' if path in ('/account', '/account/') else 'osint_dashboard.html')
-        return _respond(start_response, '200 OK', (ROOT / filename).read_bytes())
+        # The Lens upload redirects to Google Search. Only the People page
+        # permits these exact external destinations for a selected photo.
+        form_action = "'self' https://lens.google.com https://www.google.com" if filename == 'people_dashboard.html' else "'self'"
+        return _respond(start_response, '200 OK', (ROOT / filename).read_bytes(), form_action=form_action)
     if method == 'GET' and path == '/favicon.ico':
         return _respond(start_response, '204 No Content', b'', 'image/x-icon')
     if method == 'GET' and path == '/signal.css':
