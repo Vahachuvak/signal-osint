@@ -7,6 +7,7 @@ from unittest import mock
 from wsgiref.simple_server import make_server
 
 import osint_engine as engine
+import people_osint as people
 import site_app
 import web_command_center
 
@@ -202,7 +203,14 @@ class APITests(unittest.TestCase):
         status, body = self.request('GET', '/')
         self.assertEqual(status, 200)
         self.assertIn(b'SIGNAL', body)
+        # The homepage presents the site and links into both workspaces.
+        self.assertIn(b'Find the signal', body)
+        self.assertIn(b'href="/people"', body)
+        self.assertIn(b'href="/app"', body)
         self.assertIn(b'/app', body)
+        status, body = self.request('GET', '/people')
+        self.assertEqual(status, 200)
+        self.assertIn(b'PEOPLE', body)
         status, body = self.request('GET', '/app')
         self.assertEqual(status, 200)
         self.assertIn(b'20', body)
@@ -230,6 +238,19 @@ class APITests(unittest.TestCase):
         self.assertIn(b'CURRENT UPDATE', body)
         self.assertIn(b'PREVIOUS UPDATE', body)
         self.assertIn(b'TON', body)
+        self.assertIn(b'A new homepage presents the project', body)
+
+    def test_people_platform_group_through_http(self):
+        result = ('unverified', people.UNCLEAR_RE, 'https://example.org/profile')
+        with mock.patch.object(people, 'check_platform', return_value=result) as checker:
+            status, body = self.request('POST', '/api/people',
+                                        json.dumps({'username': 'example', 'sources': ['platforms']}),
+                                        {'Content-Type': 'application/json'})
+        self.assertEqual(status, 200)
+        data = json.loads(body)
+        self.assertEqual(checker.call_count, len(people.PLATFORMS))
+        self.assertEqual(sum(m['id'].startswith('platform_') for m in data['modules']), len(people.PLATFORMS))
+        self.assertEqual(next(m for m in data['modules'] if m['id'] == 'platform_telegram')['status'], 'unverified')
 
     def test_cross_origin_and_host_rejected(self):
         self.assertEqual(self.request('GET', '/', headers={'Host': 'evil.example'})[0], 403)

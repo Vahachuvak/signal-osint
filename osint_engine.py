@@ -77,8 +77,8 @@ def resolve_public(host):
 
 
 class PinnedHTTP(http.client.HTTPConnection):
-    def __init__(self, host, port, address):
-        super().__init__(host, port, timeout=TIMEOUT)
+    def __init__(self, host, port, address, timeout=TIMEOUT):
+        super().__init__(host, port, timeout=timeout)
         self.address = address
 
     def connect(self):
@@ -86,8 +86,8 @@ class PinnedHTTP(http.client.HTTPConnection):
 
 
 class PinnedHTTPS(http.client.HTTPSConnection):
-    def __init__(self, host, port, address):
-        super().__init__(host, port, timeout=TIMEOUT, context=ssl.create_default_context())
+    def __init__(self, host, port, address, timeout=TIMEOUT):
+        super().__init__(host, port, timeout=timeout, context=ssl.create_default_context())
         self.address = address
 
     def connect(self):
@@ -99,12 +99,12 @@ class PinnedHTTPS(http.client.HTTPSConnection):
             raise
 
 
-def fetch(target, addresses, path, limit=BODY_LIMIT, accept='*/*'):
+def fetch(target, addresses, path, limit=BODY_LIMIT, accept='*/*', timeout=TIMEOUT):
     """Single GET, pinned to a validated address; never follows redirects."""
     start = time.monotonic()
     last_error = 'No addresses available'
     for address in addresses[:3]:
-        conn = (PinnedHTTPS if target['scheme'] == 'https' else PinnedHTTP)(target['host'], target['port'], address)
+        conn = (PinnedHTTPS if target['scheme'] == 'https' else PinnedHTTP)(target['host'], target['port'], address, timeout=timeout)
         sent = False
         try:
             conn.connect()
