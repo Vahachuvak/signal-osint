@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Signal OSINT is a workspace for responsible public-source research: people search and passive website investigation.">
+  <title>Signal OSINT — open-source intelligence</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0}a{color:inherit;text-decoration:none}
+    .shell{max-width:1432px;margin:auto;padding:0 34px}
+    .header{border-bottom:1px solid var(--line)}.header-inner{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:.14em}.mark{width:29px;height:29px;display:grid;place-items:center;font-size:18px}
+    .brand small{display:block;font-size:9px;color:var(--dim);letter-spacing:.11em;margin-top:3px}
+    .nav{display:flex;gap:7px}.nav a{font-size:10px;padding:9px 12px;border:1px solid transparent;color:var(--muted)}
+    .nav a:hover{color:#fff}
+    .nav a.active{color:#fff;border-color:#666;background:#1c1c1c}
+    main.shell{padding-top:64px;padding-bottom:70px}
+    .eyebrow{font:700 10px Consolas,monospace;letter-spacing:.16em;color:#c6c6c6}
+    .hero{max-width:880px}.hero h1{font-size:clamp(40px,5.6vw,80px);letter-spacing:-.06em;line-height:1.04;margin:18px 0}
+    .hero h1 span{color:var(--accent)}.hero p{max-width:640px;color:var(--muted);font-size:15px;line-height:1.8;margin:0}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+    .action{display:inline-flex;align-items:center;gap:18px;padding:12px 16px;background:#ededed;color:#090909;border:1px solid #ededed;border-radius:6px;font-size:12px;font-weight:700}.action:hover{background:#fff}
+    .action.secondary{background:#191919;color:#e5e5e5;border-color:#414141}.action.secondary:hover{background:#252525;border-color:#999}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:70px}
+    .card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:26px;min-height:310px}
+    .card:first-child{background:linear-gradient(135deg,#1c1c1c,#101010 65%);border-color:#505050}
+    .card-top{display:flex;justify-content:space-between;align-items:center;color:#d0d0d0;font-size:10px;letter-spacing:.12em;font-weight:700}
+    .icon{width:38px;height:38px;border:1px solid #555;border-radius:10px;display:grid;place-items:center;font-size:18px;color:#eaeaea}
+    .card h2{font-size:22px;letter-spacing:-.03em;margin:26px 0 10px}
+    .card p{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 18px}
+    .card ul{padding-left:18px;margin:0 0 20px;color:var(--muted);font-size:12px;line-height:1.8}
+    .card ul li::marker{color:#ededed}
+    .link{margin-top:auto;display:inline-flex;gap:14px;font-size:11px;font-weight:700;letter-spacing:.06em;padding-top:14px;border-top:1px solid var(--line);color:#dedede}
+    .link:hover{color:#fff;border-top-color:#999}
+    .steps-block{margin-top:70px}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:26px}
+    .step{border-top:1px solid #454545;padding-top:22px}
+    .step-num{font:700 10px Consolas,monospace;color:#c6c6c6;letter-spacing:.14em}
+    .step h3{font-size:16px;letter-spacing:-.02em;margin:16px 0 8px}
+    .step p{color:var(--muted);font-size:12px;line-height:1.8;margin:0}
+    .callout{margin-top:70px;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:30px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+    .callout h3{font-size:20px;letter-spacing:-.03em;margin:0 0 8px}
+    .callout p{color:var(--muted);font-size:12px;line-height:1.7;margin:0}
+    .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.7;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:950px){.cards,.steps{grid-template-columns:1fr}.card{min-height:0}}
+    @media(max-width:700px){.shell{padding-left:16px;padding-right:16px}.header-inner{height:60px}.brand small{display:none}.nav{gap:0}.nav a{font-size:9px;padding:8px}main.shell{padding-top:44px;padding-bottom:56px}.cards,.steps{margin-top:48px}.callout{flex-direction:column;align-items:flex-start;padding:24px}.foot{flex-direction:column}}
+  </style>
+  <link rel="stylesheet" href="/signal.css">
+</head>
+<body>
+  <header class="header"><div class="shell header-inner"><a class="brand" href="/"><span class="mark">⌁</span><span>SIGNAL<small>OPEN SOURCE INTELLIGENCE</small></span></a><nav class="nav" aria-label="Main navigation"><a class="active" aria-current="page" href="/">HOME</a><a href="/people">PEOPLE</a><a href="/app">SITES</a><a href="/media">MEDIA</a><a href="/updates">UPDATES</a><a href="/account">ACCOUNT</a></nav></div></header>
+  <main class="shell">
+    <div class="hero">
+      <div class="eyebrow">SIGNAL / 00 ─ OVERVIEW</div>
+      <h1>Find the signal in <span>public data.</span></h1>
+      <p>Signal OSINT is a workspace for responsible open-source research. Look up public profiles by username, name, or ORCID iD, investigate websites without touching them, and export structured reports. All results come from public sources.</p>
+      <div class="cta"><a class="action" href="/people">Start people search <span aria-hidden="true">↗</span></a><a class="action secondary" href="/app">Investigate a website <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="cards" aria-label="Workspaces">
+      <article class="card"><div class="card-top"><span>01 / PEOPLE</span><span class="icon" aria-hidden="true">◉</span></div><h2>Find public profiles.</h2><p>Search by username, full name, or ORCID iD across more than a dozen public sources, then explore the connections in an interactive graph.</p><ul><li>GitHub, GitLab, Wikipedia, Bluesky, Mastodon, and more</li><li>Manual search links for search engines</li><li>Local history with JSON and Markdown exports</li></ul><a class="link" href="/people">Open the workspace <span aria-hidden="true">↗</span></a></article>
+      <article class="card"><div class="card-top"><span>02 / SITES</span><span class="icon" aria-hidden="true">◇</span></div><h2>Investigate websites passively.</h2><p>Enter an address and Signal checks DNS, HTTP, TLS, security headers, links, technology hints, and public metadata in a few bounded requests.</p><ul><li>20 modules, from DNS to sitemap</li><li>Relationship graph and saved history</li><li>JSON, Markdown, and SVG exports</li></ul><a class="link" href="/app">Open the workspace <span aria-hidden="true">↗</span></a></article>
+      <article class="card"><div class="card-top"><span>03 / PRINCIPLES</span><span class="icon" aria-hidden="true">◈</span></div><h2>Public sources only.</h2><p>Signal does not search leaked databases, test passwords, or exploit anything. A result is a hint, never a proof of identity or of safety.</p><ul><li>No leaked data, scanning, or exploitation</li><li>Verify every finding independently</li><li>Respect the law and privacy</li></ul><a class="link" href="/updates">See what changed <span aria-hidden="true">↗</span></a></article>
+    </div>
+    <section class="steps-block">
+      <div class="eyebrow">HOW IT WORKS</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><h3>Choose a workspace</h3><p>Open People to search profiles or Sites to inspect an address. No account is required for either.</p></div>
+        <div class="step"><div class="step-num">02</div><h3>Review the evidence</h3><p>Filter results, open the source links, explore the relationship graph, and compare saved searches.</p></div>
+        <div class="step"><div class="step-num">03</div><h3>Export and verify</h3><p>Download JSON, Markdown, or SVG, then confirm your findings through independent sources. Accounts stay optional.</p></div>
+      </div>
+    </section>
+    <section class="callout">
+      <div><h3>Follow and support Signal.</h3><p>News, updates, and donations live on the Media page. The public workspaces stay free.</p></div>
+      <a class="action" href="/media">Media and support <span aria-hidden="true">↗</span></a>
+    </section>
+    <footer class="foot"><span>SIGNAL / OPEN SOURCE INTELLIGENCE</span><span>Public information. Responsible research.</span></footer>
+  </main>
+  <script src="/signal_i18n.js"></script>
+</body>
+</html>
