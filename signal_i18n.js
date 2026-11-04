@@ -4,8 +4,8 @@
 
   const ru = {
     'Main navigation': 'Основная навигация', 'Navigation': 'Навигация', 'Workspaces': 'Разделы', 'Signal home': 'Signal — на главную',
-    'PEOPLE': 'ЛЮДИ', 'SITES': 'САЙТЫ', 'MEDIA': 'МЕДИА', 'UPDATES': 'ОБНОВЛЕНИЯ',
-    'People': 'Люди', 'Media': 'Медиа', 'Updates': 'Обновления', 'LOG': 'ЛОГ',
+    'PEOPLE': 'ЛЮДИ', 'SITES': 'САЙТЫ', 'MEDIA': 'МЕДИА', 'UPDATES': 'ОБНОВЛЕНИЯ', 'ACCOUNT': 'АККАУНТ',
+    'People': 'Люди', 'Media': 'Медиа', 'Updates': 'Обновления', 'Account': 'Аккаунт', 'LOG': 'ЛОГ',
     '01 / PEOPLE': '01 / ЛЮДИ', '02 / SITES': '02 / САЙТЫ', '03 / MEDIA': '03 / МЕДИА', '04 / UPDATES': '04 / ОБНОВЛЕНИЯ',
     'Public profiles and articles': 'Публичные профили и статьи', 'Domains and connections': 'Домены и связи',
     'Follow and support Signal': 'Подписка и поддержка', "What's new in Signal": 'Что нового в Signal',
@@ -150,9 +150,17 @@
     'Find project news, updates, and more on the official Signal OSINT channel.': 'Новости проекта, обновления и другие материалы — в официальном Telegram-канале Signal OSINT.',
     'If you find Signal useful, you can support the project through its Monobank donation jar.': 'Если Signal вам полезен, вы можете поддержать проект через банку Monobank.',
     'Open Telegram': 'Открыть Telegram', 'Donation': 'Поддержать проект', 'Public information. Responsible research.': 'Открытые данные. Ответственное исследование.',
+    '03 / TON': '03 / TON', 'Donate with TON': 'Поддержать через TON',
+    'Send TON directly to this address on the TON mainnet. Verify the address and network in your wallet before sending.': 'Отправьте TON напрямую на этот адрес в основной сети TON. Перед отправкой проверьте адрес и сеть в своём кошельке.',
+    'Copy TON address': 'Скопировать адрес TON', 'Address copied.': 'Адрес скопирован.', 'Copy unavailable. Select and copy the address manually.': 'Не удалось скопировать. Выделите адрес и скопируйте его вручную.',
     'SIGNAL / 04 ─ CHANGELOG': 'SIGNAL / 04 ─ ИСТОРИЯ ОБНОВЛЕНИЙ', 'Tracking the': 'Развитие', 'signal.': 'Signal.', 'What changed.': 'Что изменилось.',
     'A record of the improvements made to Signal OSINT, from workspace updates to new features.': 'История улучшений Signal OSINT: от изменений интерфейса до новых возможностей.',
-    'Project updates': 'Обновления проекта', '01 / CURRENT UPDATE': '01 / ТЕКУЩЕЕ ОБНОВЛЕНИЕ', '02 / PREVIOUS UPDATE': '02 / ПРЕДЫДУЩЕЕ ОБНОВЛЕНИЕ', '03 / FOUNDATION': '03 / ОСНОВА',
+    'Project updates': 'Обновления проекта', '01 / CURRENT UPDATE': '01 / ТЕКУЩЕЕ ОБНОВЛЕНИЕ', '02 / PREVIOUS UPDATE': '02 / ПРЕДЫДУЩЕЕ ОБНОВЛЕНИЕ', '03 / EARLIER UPDATE': '03 / ПРЕЖНЕЕ ОБНОВЛЕНИЕ', '04 / FOUNDATION': '04 / ОСНОВА',
+    'A clearer signal.': 'Чётче и проще.', 'A monochrome workspace with optional accounts and new ways to support the project.': 'Монохромный интерфейс, необязательные аккаунты и новые способы поддержки проекта.',
+    'A minimal black-and-white design across the site.': 'Минималистичный чёрно-белый дизайн на всём сайте.',
+    'Sign in or create an account; registered accounts are stored in a database and managed in an access-controlled administrator area.': 'Вход и регистрация; аккаунты хранятся в базе данных, а управление доступно только в защищённом разделе администратора.',
+    'Passwords are stored as salted Argon2id hashes, and administrator access is checked on the server.': 'Пароли хранятся как хеши Argon2id с солью, а доступ администратора проверяется на сервере.',
+    'Support Signal directly with TON from the Media page, alongside the existing Monobank donation link.': 'Поддержка Signal через TON на странице Media, наряду с существующей ссылкой Monobank.',
     'Choose your language. Explore the dark.': 'Выберите язык. Исследуйте глубже.', 'A more focused interface and a new way to follow the project.': 'Более собранный интерфейс и новый способ следить за проектом.',
     'Switch between English and Russian from the top of the site. Your preference stays in your browser.': 'Переключайтесь между английским и русским вверху сайта. Выбор сохраняется в браузере.',
     'A darker, terminal-inspired visual style across the workspaces.': 'Более тёмное оформление в стиле терминала во всех разделах.', 'This update log keeps the project\'s changes in one place.': 'История обновлений собирает изменения проекта в одном месте.',
@@ -165,6 +173,41 @@
     'Save and compare browser history, and export reports in supported formats.': 'Сохраняйте и сравнивайте историю в браузере, экспортируйте отчёты в поддерживаемых форматах.',
     'Results are not identity verification or a full security audit. Verify sources independently.': 'Результаты не подтверждают личность и не являются полным аудитом безопасности. Проверяйте источники самостоятельно.',
     'New entries will appear here as the project is updated.': 'Новые записи появятся здесь по мере обновления проекта.',
+
+    /* Account and administrator UI. Account data itself is never translated. */
+    'SIGNAL / ACCOUNT': 'SIGNAL / АККАУНТ', 'Your account.': 'Ваш аккаунт.',
+    'Sign in or create an account. The public workspaces remain available without signing in.': 'Войдите или создайте аккаунт. Публичные разделы по-прежнему доступны без входа.',
+    'JavaScript is required to use accounts.': 'Для использования аккаунтов необходим JavaScript.', 'Account access': 'Доступ к аккаунту',
+    'Sign in': 'Войти', 'Create account': 'Создать аккаунт', 'PASSWORD': 'ПАРОЛЬ', 'CONFIRM PASSWORD': 'ПОДТВЕРДИТЕ ПАРОЛЬ',
+    '3–32 Latin letters, numbers, dots, underscores or hyphens.': 'От 3 до 32 латинских букв, цифр, точек, подчёркиваний или дефисов.',
+    'Use a unique password of 10–128 characters.': 'Используйте уникальный пароль длиной от 10 до 128 символов.',
+    'SIGNED IN': 'ВЫ ВОШЛИ', 'Administrator': 'Администратор', 'Member': 'Пользователь', 'Sign out': 'Выйти', 'Open admin panel': 'Открыть админ-панель',
+    'Change password': 'Изменить пароль', 'Changing your password signs you out on all devices.': 'После смены пароля вы выйдете из аккаунта на всех устройствах.',
+    'CURRENT PASSWORD': 'ТЕКУЩИЙ ПАРОЛЬ', 'NEW PASSWORD': 'НОВЫЙ ПАРОЛЬ', 'CONFIRM NEW PASSWORD': 'ПОДТВЕРДИТЕ НОВЫЙ ПАРОЛЬ', 'Update password': 'Сохранить пароль',
+    'ACCOUNT SECURITY / 01': 'БЕЗОПАСНОСТЬ АККАУНТА / 01', 'Keep your access private.': 'Берегите доступ к аккаунту.',
+    'Passwords are stored as salted Argon2id hashes, not as readable text. Do not reuse passwords or share them with anyone.': 'Пароли хранятся как хеши Argon2id с солью, а не открытым текстом. Не используйте один пароль повторно и никому его не сообщайте.',
+    'Accounts are optional. Search history still stays in your browser unless you choose to save it.': 'Аккаунты необязательны. История поиска сохраняется только в браузере, если вы включили её сохранение.',
+    'There is currently no automated password recovery. Keep your password safe.': 'Автоматического восстановления пароля пока нет. Сохраните пароль в надёжном месте.',
+    'SIGNAL / ADMINISTRATION': 'SIGNAL / АДМИНИСТРИРОВАНИЕ', 'Account oversight.': 'Управление аккаунтами.',
+    'Review registered accounts and manage access. Passwords and password hashes are never shown here.': 'Просматривайте зарегистрированные аккаунты и управляйте доступом. Пароли и их хеши здесь не отображаются.',
+    '← Back to account': '← Назад в аккаунт', 'Registered accounts': 'Зарегистрированные аккаунты', 'Loading accounts…': 'Загрузка аккаунтов…',
+    'Refresh': 'Обновить', 'Active': 'Активен', 'Disable': 'Отключить', 'Enable': 'Включить', 'Protected': 'Защищён',
+    'Showing up to 200 accounts. Administrator accounts cannot be disabled here.': 'Показано до 200 аккаунтов. Отключить администратора здесь нельзя.',
+    'Authorized access only.': 'Доступ только для уполномоченных лиц.',
+    'Disable this account? Its sessions will be signed out.': 'Отключить аккаунт? Его активные сеансы будут завершены.', 'Enable this account?': 'Включить этот аккаунт?',
+    'Passwords do not match.': 'Пароли не совпадают.', 'Unexpected server response.': 'Неожиданный ответ сервера.', 'Account service is unavailable.': 'Сервис аккаунтов недоступен.',
+    'Accounts are not configured or temporarily unavailable.': 'Аккаунты ещё не настроены или временно недоступны.', 'Account access requires HTTPS.': 'Для доступа к аккаунту требуется HTTPS.',
+    'Username must be 3–32 Latin letters, numbers, dots, underscores or hyphens, starting with a letter or number.': 'Имя пользователя должно содержать 3–32 латинские буквы, цифры, точки, подчёркивания или дефисы и начинаться с буквы или цифры.',
+    'Password must be 10–128 characters long.': 'Пароль должен содержать от 10 до 128 символов.', 'Password contains invalid characters.': 'Пароль содержит недопустимые символы.',
+    'Enter a valid username.': 'Введите корректное имя пользователя.', 'This username is already in use.': 'Это имя пользователя уже занято.', 'Invalid username or password.': 'Неверное имя пользователя или пароль.',
+    'Too many attempts. Please try again later.': 'Слишком много попыток. Попробуйте позже.', 'Account service is busy. Please try again.': 'Сервис аккаунтов занят. Попробуйте снова.',
+    'Please sign in first.': 'Сначала войдите в аккаунт.', 'Your session could not be verified. Refresh and try again.': 'Не удалось проверить сеанс. Обновите страницу и повторите попытку.',
+    'Current password is incorrect.': 'Текущий пароль неверен.', 'Choose a different new password.': 'Новый пароль должен отличаться от текущего.',
+    'Password changed. Sign in again.': 'Пароль изменён. Войдите снова.', 'Account changed. Please sign in again.': 'Аккаунт изменён. Войдите снова.',
+    'Invalid account request.': 'Некорректный запрос к аккаунту.', 'Account not found or cannot be changed.': 'Аккаунт не найден или его нельзя изменить.',
+    'Account is unavailable.': 'Аккаунт недоступен.', 'An internal account error occurred.': 'Внутренняя ошибка сервиса аккаунтов.',
+    'Expected a JSON request.': 'Ожидается запрос JSON.', 'Invalid request origin.': 'Недопустимый источник запроса.',
+    'Account | Signal OSINT': 'Аккаунт | Signal OSINT', 'Administration | Signal OSINT': 'Администрирование | Signal OSINT',
 
     /* Website landing page and user-facing errors. */
     'Capabilities': 'Возможности', 'How it works': 'Как это работает', 'Responsible use': 'О данных', 'Open workspace': 'Открыть платформу',
@@ -262,7 +305,8 @@
     [/^DOI: (.+) · authorship is not confirmed by a name match$/, (_, doi) => `DOI: ${doi} · авторство по совпадению имени не подтверждено`],
     [/^★ (\d+) · language not specified$/, (_, n) => `★ ${n} · язык не указан`],
     [/^(.+) · status$/, (_, title) => `${translate(title)} · статус`],
-    [/^Form (\d+)$/, (_, n) => `Форма ${n}`]
+    [/^Form (\d+)$/, (_, n) => `Форма ${n}`],
+    [/^Total accounts: (\d+)$/, (_, n) => `Всего аккаунтов: ${n}`]
   ];
 
   function translate(value) {
@@ -299,12 +343,25 @@
       link.textContent = headerNav.classList.contains('navigation') ? 'Updates' : 'UPDATES';
       headerNav.appendChild(link);
     }
+    if (headerNav && !headerNav.querySelector('a[href="/account"]')) {
+      const link = document.createElement('a');
+      link.href = '/account'; link.className = 'account-link';
+      link.textContent = headerNav.classList.contains('navigation') ? 'Account' : 'ACCOUNT';
+      headerNav.appendChild(link);
+    }
     const sidebar = document.querySelector('.sidebar');
     if (sidebar && !sidebar.querySelector('a[href="/updates"]')) {
       const link = document.createElement('a');
       link.className = 'nav'; link.href = '/updates';
       link.setAttribute('aria-label', 'Updates');
       link.innerHTML = '<span class="icon">≡</span><span class="nav-text">Updates ↗</span>';
+      const separator = sidebar.querySelector('.side-separator');
+      sidebar.insertBefore(link, separator || null);
+    }
+    if (sidebar && !sidebar.querySelector('a[href="/account"]')) {
+      const link = document.createElement('a');
+      link.className = 'nav'; link.href = '/account'; link.setAttribute('aria-label', 'Account');
+      link.innerHTML = '<span class="icon">◉</span><span class="nav-text">Account ↗</span>';
       const separator = sidebar.querySelector('.side-separator');
       sidebar.insertBefore(link, separator || null);
     }
@@ -320,6 +377,9 @@
       const compact = document.createElement('a');
       compact.className = 'updates-short'; compact.href = '/updates'; compact.textContent = 'LOG';
       headerNav.parentElement.insertBefore(compact, headerNav.nextSibling);
+      const account = document.createElement('a');
+      account.className = 'account-short'; account.href = '/account'; account.textContent = 'ACCOUNT';
+      headerNav.parentElement.insertBefore(account, compact.nextSibling);
     }
   }
   addNavigation();

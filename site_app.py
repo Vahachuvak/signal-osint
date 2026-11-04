@@ -8,6 +8,8 @@ import threading
 import time
 from urllib.parse import urlsplit
 
+import auth_store
+import auth_web
 from osint_engine import inspect_target
 from people_osint import search_people
 
@@ -83,11 +85,22 @@ def application(environ, start_response):
         return _respond(start_response, '200 OK', b'ok', 'text/plain; charset=utf-8')
     if not _valid_host_and_origin(environ):
         return _respond(start_response, '403 Forbidden', _json({'error': 'Invalid host or request origin.'}), 'application/json; charset=utf-8')
-    if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/', '/media', '/media/', '/updates', '/updates/'):
+    if path.startswith(('/api/auth/', '/api/admin/')):
+        return auth_web.handle(path, environ, start_response, _respond, _json)
+    if method == 'GET' and path in ('/admin', '/admin/'):
+        try:
+            allowed = auth_web.admin_allowed(environ)
+        except auth_store.AuthUnavailable:
+            return _respond(start_response, '503 Service Unavailable', _json({'error': 'Accounts are not configured or temporarily unavailable.'}), 'application/json; charset=utf-8')
+        if not allowed:
+            return _respond(start_response, '404 Not Found', _json({'error': 'Page not found.'}), 'application/json; charset=utf-8')
+        return _respond(start_response, '200 OK', (ROOT / 'admin.html').read_bytes())
+    if method == 'GET' and path in ('/', '/people', '/people/', '/sites', '/app', '/app/', '/media', '/media/', '/updates', '/updates/', '/account', '/account/'):
         filename = ('people_dashboard.html' if path in ('/', '/people', '/people/') else
                     'signal_home.html' if path == '/sites' else
                     'media.html' if path in ('/media', '/media/') else
-                    'updates.html' if path in ('/updates', '/updates/') else 'osint_dashboard.html')
+                    'updates.html' if path in ('/updates', '/updates/') else
+                    'account.html' if path in ('/account', '/account/') else 'osint_dashboard.html')
         return _respond(start_response, '200 OK', (ROOT / filename).read_bytes())
     if method == 'GET' and path == '/favicon.ico':
         return _respond(start_response, '204 No Content', b'', 'image/x-icon')
@@ -97,6 +110,8 @@ def application(environ, start_response):
         return _respond(start_response, '200 OK', (ROOT / 'people_enhancements.js').read_bytes(), 'text/javascript; charset=utf-8')
     if method == 'GET' and path == '/signal_i18n.js':
         return _respond(start_response, '200 OK', (ROOT / 'signal_i18n.js').read_bytes(), 'text/javascript; charset=utf-8')
+    if method == 'GET' and path in ('/account.js', '/admin.js'):
+        return _respond(start_response, '200 OK', (ROOT / path[1:]).read_bytes(), 'text/javascript; charset=utf-8')
     if method == 'GET' and path == '/robots.txt':
         return _respond(start_response, '200 OK', b'User-agent: *\nAllow: /\nDisallow: /app\n', 'text/plain; charset=utf-8')
     if method != 'POST' or path not in ('/api/inspect', '/api/people'):

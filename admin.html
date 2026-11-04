@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow"><title>Administration | Signal OSINT</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}.shell{max-width:1432px;margin:auto;padding:0 34px}
+    .header{border-bottom:1px solid var(--line)}.header-inner{height:69px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800}.mark{width:29px;height:29px;display:grid;place-items:center;font-size:18px}.brand small{display:block;font-size:9px;color:var(--dim);letter-spacing:.11em;margin-top:3px}.nav{display:flex;gap:7px}.nav a{font-size:10px;padding:9px 12px;border:1px solid transparent}
+    main.shell{padding-top:55px;padding-bottom:70px}.eyebrow{font:700 10px Consolas,monospace;letter-spacing:.15em;color:var(--muted)}h1{font-size:clamp(38px,5vw,64px);letter-spacing:-.05em;line-height:1.05;margin:18px 0}.intro p{max-width:700px;color:var(--muted);font-size:15px;line-height:1.7}.panel{border:1px solid var(--line);border-radius:10px;background:var(--panel)}.admin-panel{margin-top:42px;max-width:1100px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:20px 24px;border-bottom:1px solid var(--line);flex-wrap:wrap}.panel-head h2{font-size:18px;margin:0}.small{color:var(--muted);font-size:11px;line-height:1.6}.button{display:inline-flex;align-items:center;justify-content:center;min-height:37px;padding:0 12px;border:1px solid #444;border-radius:6px;font-size:11px;text-decoration:none}.status{padding:0 24px;color:#ddd;font-size:12px;line-height:1.6}.status:empty{display:none}.user-row{display:grid;grid-template-columns:minmax(130px,1.3fr) minmax(100px,.6fr) minmax(80px,.5fr) minmax(110px,.7fr) auto;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--line);font-size:12px}.user-row:last-child{border-bottom:0}.user-name{font-weight:700;overflow-wrap:anywhere}.badge{border:1px solid #555;border-radius:4px;padding:5px 7px;display:inline-block;width:max-content;font-size:10px;color:#ddd}.user-row .date{color:var(--muted);font-size:11px}.foot{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.7;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:700px){.shell{padding-left:16px;padding-right:16px}.header-inner{height:60px}.brand small{display:none}.nav{gap:0}.nav a{font-size:9px;padding:8px}main.shell{padding-top:35px}.user-row{grid-template-columns:1fr 1fr;gap:10px;padding:16px}.user-name{grid-column:1/-1}.panel-head{padding:18px}.foot{flex-direction:column}}
+  </style><link rel="stylesheet" href="/signal.css">
+</head>
+<body>
+  <header class="header"><div class="shell header-inner"><a class="brand" href="/people"><span class="mark">⌁</span><span>SIGNAL<small>OPEN SOURCE INTELLIGENCE</small></span></a><nav class="nav" aria-label="Main navigation"><a href="/people">PEOPLE</a><a href="/app">SITES</a><a href="/media">MEDIA</a><a href="/updates">UPDATES</a><a class="account-link" href="/account">ACCOUNT</a></nav></div></header>
+  <main class="shell"><div class="intro"><div class="eyebrow">SIGNAL / ADMINISTRATION</div><h1>Account oversight.</h1><p>Review registered accounts and manage access. Passwords and password hashes are never shown here.</p><a class="button" href="/account">← Back to account</a></div>
+    <section class="panel admin-panel"><div class="panel-head"><div><h2>Registered accounts</h2><p class="small" id="user-count">Loading accounts…</p></div><button class="button" id="refresh-users" type="button">Refresh</button></div><p class="status" id="admin-status" role="status" aria-live="polite"></p><div id="user-list"></div><p class="small" style="padding:0 24px 20px">Showing up to 200 accounts. Administrator accounts cannot be disabled here.</p></section>
+    <footer class="foot"><span>SIGNAL / OPEN SOURCE INTELLIGENCE</span><span>Authorized access only.</span></footer>
+  </main>
+  <script src="/admin.js"></script><script src="/signal_i18n.js"></script>
+</body>
+</html>
